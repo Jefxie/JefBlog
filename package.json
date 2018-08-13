@@ -1,0 +1,33 @@
+{
+  "name": "JefBlog",
+  "version": "1.0.0",
+  "description": "",
+  "author": "jef",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "circular-json": "^0.5.5",
+    "iview": "^3.0.0",
+    "iview-editor": "^1.1.1",
+    "normalize.css": "^8.0.0",
+    "nuxt": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-import": "^1.8.0",
+    "eslint": "^4.15.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0"
+  }
+}
