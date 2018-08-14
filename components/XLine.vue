@@ -32,7 +32,7 @@
         span{
             height: 1px;
             width: 45%;
-            background-color: #999;
+            background-color: $jef_red;
             opacity: .2;
         }
     }

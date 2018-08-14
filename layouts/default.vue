@@ -94,7 +94,7 @@ export default {
     z-index: 1;
 }
 .container.pads {
-    padding-top: 60px;
+    padding-top: 57px;
 }
 </style>
 

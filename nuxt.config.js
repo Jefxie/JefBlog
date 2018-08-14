@@ -39,7 +39,7 @@ module.exports = {
         });
       }
     },
-    vendor: ["axios", "~/assets/icon/iconfont", "~/plugins/iView"]
+    vendor: ["axios","js-cookie","dayjs", "~/assets/icon/iconfont", "~/plugins/iView"]
   },
   plugins: ["~/plugins/iView"],
   // router

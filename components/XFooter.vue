@@ -16,17 +16,18 @@
             </div>
             <div class="footer-ctx-r">
                 <h5>
-                    <svg class="icon mylogo" aria-hidden="true">
+                    <img class="mylogo" src="../assets/images/logo.w.png" alt="Jef.Site（雨夜）">
+                    <!-- <svg class="icon mylogo" aria-hidden="true">
                     <use xlink:href="#icon-maotouying"></use>
-                    </svg>
+                    </svg> -->
                 </h5>
                 <ul>
-                    <li><a href="https://github.com/Jeffyx" target="_blank">
+                    <li><a href="https://github.com/jefxie" target="_blank">
                         <svg class="icon github" aria-hidden="true">
                     <use xlink:href="#icon-github"></use>
                     </svg>
                     </a></li>
-                    <li><a href="https://gitee.com/JeffyXie" target="_blank">
+                    <li><a href="https://gitee.com/jefxie" target="_blank">
                         <svg class="icon mayun" aria-hidden="true">
                     <use xlink:href="#icon-mayun"></use>
                     </svg>
@@ -102,7 +103,13 @@
                 justify-content: center;
             }
             .mylogo {
-                font-size: 90px;
+                // font-size: 90px;
+                width: 90px;
+                margin-bottom: 10px;
+                transition: 0.2s;
+                &:hover {
+                    transform: scale(1.2);
+                }
             }
             .github {
                 font-size: 26px;

@@ -38,6 +38,7 @@
     </div>
 </template>
 <script>
+import date from "~/uilts/date"
 export default {
     name: "x-list",
     props: {
@@ -45,11 +46,11 @@ export default {
             type: Object,
             default: () => {
                 return {
-                    id: "article id", //文章id
-                    title: "article title", //标题
-                    abstract: "热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门", //文章摘要
+                    id: "", //文章id
+                    title: "", //标题
+                    abstract: "", //文章摘要
                     create_at: "", //创建时间
-                    author: "jeff", //作者
+                    author: "jef", //作者
                     // likes: 100, //点赞数量
                     category: "nodejs", //分类名
                     c_count: "1", //评论数量
@@ -60,7 +61,7 @@ export default {
     },
     filters:{
         formatTime(t){
-            return t
+            return date(t).format('YYYY-MM-DD HH:mm:ss')
         }
     },
     methods:{

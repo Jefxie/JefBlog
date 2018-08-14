@@ -22,7 +22,7 @@ import XSearch from '~/components/XSearch'
 <style lang="scss" scoped>
     .banner{
         width: 100%;
-        height: 500px;
+        height: 520px;
         background: url() no-repeat center/cover;
 
         display: flex;

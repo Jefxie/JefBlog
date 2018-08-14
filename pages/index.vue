@@ -24,11 +24,11 @@
                         <use xlink:href="#icon-nodejs1"></use>
                     </svg>
                 </li>
-                <li>
+                <!-- <li>
                     <svg class="icon weibo" aria-hidden="true">
                         <use xlink:href="#icon-koa"></use>
                     </svg>
-                </li>
+                </li> -->
                 <li>
                     <svg class="icon weibo" aria-hidden="true">
                         <use xlink:href="#icon-pg"></use>
@@ -118,7 +118,7 @@ export default {
             }
             li {
                 svg {
-                    font-size: 80px;
+                    font-size: 100px;
                 }
                 transition: 0.2s;
                 &:hover {
