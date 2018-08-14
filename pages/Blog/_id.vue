@@ -1,0 +1,146 @@
+<template>
+    <div class="blog">
+        <div class="blog-content">
+            <x-slide />
+            <template v-for="(item,i) in articleList[paramsId]||[]">
+                <x-list
+                :key="i"
+                :data="item"
+                @detail="goToDetail" />
+            </template>
+            <div class="blog-more">
+                <button v-if="isLoading" @click="loadMore">加载更多</button>
+            </div>
+        </div>
+        <div class="blog-bar">
+            <h3 class="blog-bar-title"><Icon type="ios-keypad" />&nbsp;文章分类</h3>
+            <x-sidebar 
+            :list="categoryList"
+            :active="paramsId" />
+        </div>
+    </div>
+</template>
+<script>
+import XSidebar from "~/components/XSidebar";
+import XSlide from "~/components/XSlider";
+import XList from "~/components/XList";
+import { mapGetters, mapActions } from "vuex";
+export default {
+    name: "blog",
+    data() {
+        return {
+            paramsId: "all",
+            pages: {}
+        };
+    },
+    components: {
+        XSidebar,
+        XSlide,
+        XList
+    },
+    computed: {
+        ...mapGetters(["categoryList", "articleList"]),
+        categoryId() {
+            if (
+                !Object.prototype.toString
+                    .call(this.categoryList)
+                    .includes("Array")
+            )
+                return "";
+            const len = this.categoryList.length || 0;
+            for (let i = 0; i < len; i++) {
+                if (this.categoryList[i].alias == this.paramsId) {
+                    return this.categoryList[i].id;
+                }
+            }
+            return "";
+        },
+        isLoading() {
+            if (
+                this.articleList[this.paramsId] &&
+                this.articleList[this.paramsId].length >= 10
+            )
+                return true;
+
+            return false;
+        }
+    },
+    watch: {
+        $route: {
+            handler: function(val, old) {
+                this.paramsId = val.params.id || "all";
+                this.initArticleList();
+            },
+            immediate: true
+        }
+    },
+    methods: {
+        ...mapActions(["getArticleList"]),
+        initArticleList(ispush = false, page = 1, total = 10) {
+            this.getArticleList({
+                category: this.categoryId,
+                key: this.paramsId,
+                ispush,
+                total,
+                page
+            });
+        },
+        loadMore() {
+            const _page = this.pages[this.paramsId]
+                ? ++this.pages[this.paramsId]
+                : (this.pages[this.paramsId] = 2);
+            this.initArticleList(true, _page);
+        },
+        goToDetail(id) {
+            this.$router.push("/blog/detail/" + id + '.html');
+        }
+    }
+};
+</script>
+
+<style scoped lang="scss">
+@import "~/assets/styles/variable.scss";
+.blog {
+    display: flex;
+    justify-content: space-between;
+    width: $wrap_m;
+    margin: 22px auto;
+    min-height: 800px;
+
+    &-content {
+        width: $content;
+    }
+    &-bar {
+        width: $slide;
+        padding: 0 10px;
+
+        &-title {
+            color: $font_3;
+            // border-left: 3px solid $jef_red;
+        }
+    }
+    &-more {
+        width: 100%;
+        height: 100px;
+        // background-color: $bg_2;
+        text-align: center;
+        line-height: 100px;
+
+        button {
+            width: 110px;
+            height: 34px;
+            line-height: 34px;
+            border-radius: 4px;
+            background-color: transparent;
+            border: 1px solid $jef_red;
+            color: $jef_red;
+            cursor: pointer;
+            transition: 0.1s;
+            &:hover {
+                background-color: $jef_red;
+                color: white;
+            }
+        }
+    }
+}
+</style>

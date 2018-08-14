@@ -7,25 +7,56 @@
                     <img v-else src="../assets/images/logo.r.png" alt="jef.site">
                 </h1>
                 <ul class="xheader-wrap-tab" :class="clarity?'f':''">
-                    <li class="active">首页</li>
-                    <li>博客</li>
-                    <li>PWA</li>
+                    <template v-for="(item,i) in headers">
+                        <li :class="isActive(item.path)?'active':''" :key="i" @click="jumpTo(item.path)">
+                            {{item.name}}
+                        </li>
+                    </template>
                 </ul>
             </div>
             <div class="xheader-wrap-r">
-                <button class="xheader-wrap-login">登录</button>
+                <button @click="toLogin" class="xheader-wrap-login">登录</button>
                 <button class="xheader-wrap-register">注册</button>
             </div>
         </div>
     </div>
 </template>
 <script>
+import Cookies from "js-cookie";
+import { userLogin } from "~/api/user";
 export default {
     name: "xheader",
     props: {
         clarity: {
             type: Boolean,
             default: true
+        },
+        headers: {
+            type: Array,
+            default: () => []
+        },
+        active: {
+            type: String,
+            default: "/"
+        }
+    },
+    methods: {
+        isActive(p) {
+            if (this.active === "/" && p === "/") return true;
+            if (p === "/") return false;
+            return this.active.includes(p);
+        },
+        jumpTo(to) {
+            this.$router.push(to);
+        },
+        async toLogin() {
+            const _url = window.location.href;
+            Cookies.set(
+                "_returnUrl",
+                _url.replace("http://127.0.0.1:3000", "")
+            );
+            const _target = "http://127.0.0.1:7001/passport/github";
+            window.location.href = _target;
         }
     }
 };
@@ -37,7 +68,7 @@ export default {
     width: 100%;
     height: 59px;
     background-color: $bg;
-    border-bottom: 1px solid rgba($color: $font_3, $alpha: 0.3);
+    border-bottom: 1px solid rgba($color: $font_3, $alpha: 0.2);
     transition: 0.3s;
     &.clarity {
         background-color: transparent;
@@ -65,7 +96,7 @@ export default {
         &-tab {
             display: flex;
             align-items: center;
-            margin-left: 30px;
+            margin-left: 80px;
             font-size: 18px;
             &.f {
                 color: #fff;
@@ -74,10 +105,10 @@ export default {
                     color: #fff;
                     border-bottom: 1px solid #fff;
                 }
-                li{
+                li {
                     &:hover {
-                    border-bottom: 1px solid #fff;
-                }
+                        border-bottom: 1px solid #fff;
+                    }
                 }
             }
             li {
@@ -92,7 +123,8 @@ export default {
                 }
             }
         }
-        &-login,&-register{
+        &-login,
+        &-register {
             width: 60px;
             height: 28px;
             text-align: center;
@@ -101,11 +133,10 @@ export default {
             border-radius: 4px;
             border: 1px solid #000;
         }
-        &-login{
+        &-login {
             margin-right: 10px;
         }
-        &-register{
-
+        &-register {
         }
     }
 }

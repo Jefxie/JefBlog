@@ -3,15 +3,19 @@
     <header class="header">
       <x-header
         :clarity="isHome&&isClarity" 
+        :headers='headers'
+        :active="curPath"
       />
     </header>
     <div class="container" :class="isHome?'':'pads'">
       <nuxt/>
     </div>
     <x-footer />
+    <BackTop></BackTop>
   </div>
 </template>
 <script>
+import Cookies from "js-cookie";
 import XHeader from "~/components/XHeader";
 import XFooter from "~/components/XFooter";
 import { mapActions } from "vuex";
@@ -20,7 +24,22 @@ export default {
     data() {
         return {
             isClarity: true,
-            isHome: false
+            isHome: false,
+            curPath: "",
+            headers: [
+                {
+                    name: "首页",
+                    path: "/"
+                },
+                {
+                    name: "博客",
+                    path: "/blog"
+                },
+                {
+                    name: "Pwa",
+                    path: "/pwa"
+                }
+            ]
         };
     },
     components: {
@@ -38,6 +57,8 @@ export default {
     watch: {
         $route: {
             handler: function(val, old) {
+                console.log('sssaaa',Cookies.get("EGG_SESS"))
+                this.curPath = val.path;
                 if (val.path === "/") {
                     this.isHome = true;
                     return;

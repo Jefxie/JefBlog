@@ -1,7 +1,7 @@
 <template>
     <div class="list">
-        <a href="javascript:void" class="list-title">{{data.title}}</a>
-        <p class="list-ctx">{{data.brief}}</p>
+        <a href="javascript:void" class="list-title" @click="emitTo">{{data.title}}</a>
+        <p class="list-ctx">{{data.abstract}}</p>
         <div class="list-foot">
             <div class="list-foot-l">
                 <span class="list-foot-category">{{data.category}}</span>
@@ -14,19 +14,19 @@
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-shijian"></use>
                     </svg>
-                    {{data.create_time | formatTime}}</span>
+                    {{data.create_at | formatTime}}</span>
             </div>
             <div class="list-foot-r">
                 <span class="list-foot-comment">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-liaotian"></use>
                     </svg>
-                    {{data.c_count}}</span>
-                <span class="list-foot-likes">
+                    {{data.c_count||0}}</span>
+                <!-- <span class="list-foot-likes">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-manyi"></use>
                     </svg>
-                    {{data.likes}}</span>
+                    {{data.likes}}</span> -->
                 <span class="list-foot-pv">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-kejian"></use>
@@ -47,10 +47,10 @@ export default {
                 return {
                     id: "article id", //文章id
                     title: "article title", //标题
-                    brief: "热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门", //文章摘要
-                    create_time: "", //创建时间
+                    abstract: "热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门热门", //文章摘要
+                    create_at: "", //创建时间
                     author: "jeff", //作者
-                    likes: 100, //点赞数量
+                    // likes: 100, //点赞数量
                     category: "nodejs", //分类名
                     c_count: "1", //评论数量
                     pv: "100" //阅读量
@@ -60,7 +60,12 @@ export default {
     },
     filters:{
         formatTime(t){
-            return t.slice(0,10)
+            return t
+        }
+    },
+    methods:{
+        emitTo(){
+            this.$emit('detail',this.data.id)
         }
     }
 };
