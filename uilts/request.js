@@ -1,9 +1,11 @@
 import axios from "axios";
+import vm from "vue";
 
 axios.defaults.baseURL = "http://127.0.0.1:7001";
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
+axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded";
+axios.defaults.withCredentials = true;
 // Add a request interceptor
 axios.interceptors.request.use(
   function(config) {
@@ -23,7 +25,9 @@ axios.interceptors.response.use(
     const data = response.data || {};
     // debugger;
     if (data.err || false) {
-      console.log(data.err);
+      console.log(data.msg);
+      vm.$Message.error(data.msg);
+      return Promise.reject(data);
     }
     return data;
   },

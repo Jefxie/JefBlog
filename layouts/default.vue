@@ -57,7 +57,8 @@ export default {
     watch: {
         $route: {
             handler: function(val, old) {
-                console.log('sssaaa',Cookies.get("EGG_SESS"))
+                this.getUserInfo();
+
                 this.curPath = val.path;
                 if (val.path === "/") {
                     this.isHome = true;
@@ -69,7 +70,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["getCategoryList"]),
+        ...mapActions(["getCategoryList", "getUserInfo"]),
         handleScroll() {
             let scrollTop =
                 window.pageYOffset ||
@@ -85,7 +86,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .header {
     position: fixed;
     width: 100%;

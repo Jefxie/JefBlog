@@ -7,7 +7,7 @@
     </div>
 </template>
 <script>
-import {GetArticleDetail} from "~/api/blog";
+import { GetArticleDetail } from "~/api/blog";
 export default {
     name: "detail",
     data() {
@@ -20,12 +20,24 @@ export default {
             handler: async function(val, old) {
                 if (!val.params.id) return;
                 // this.initArticleList();
-                const _id = val.params.id.replace('.html','');
+                const _id = val.params.id.replace(".html", "");
                 const res = await GetArticleDetail(_id);
                 this.detailData = res.data;
             },
             immediate: true
         }
+    },
+    head() {
+        return {
+            title: this.detailData.title,
+            meta: [
+                {
+                    hid: "detail",
+                    name: "detail",
+                    content: "文章详情,Jef.site 雨夜客栈(博客)"
+                }
+            ]
+        };
     }
 };
 </script>

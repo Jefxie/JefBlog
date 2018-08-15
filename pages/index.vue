@@ -68,11 +68,11 @@ export default {
     name: "home",
     data() {
         return {
-            categoryList:[
-                {name:'node',alias:'alias',brief:'brief'},
-                {name:'node',alias:'alias',brief:'brief'},
-                {name:'node',alias:'alias',brief:'brief'},
-                {name:'node',alias:'alias',brief:'brief'},
+            categoryList: [
+                { name: "node", alias: "alias", brief: "brief" },
+                { name: "node", alias: "alias", brief: "brief" },
+                { name: "node", alias: "alias", brief: "brief" },
+                { name: "node", alias: "alias", brief: "brief" }
             ]
         };
     },
@@ -81,9 +81,16 @@ export default {
         XLine,
         XPlaque
     },
-    metaInfo() {
+    head() {
         return {
-            title: "this.title"
+            title: "首页",
+            meta: [
+                {
+                    hid: "home",
+                    name: "home",
+                    content: "首页 Jef.site 雨夜客栈(博客)"
+                }
+            ]
         };
     }
 };
@@ -106,26 +113,26 @@ export default {
         margin: 20px auto;
     }
     &-frame {
-            width: 100%;
-            height: 180px;
+        width: 100%;
+        height: 180px;
 
-            ul {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
+        ul {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        li {
+            svg {
+                font-size: 100px;
             }
-            li {
-                svg {
-                    font-size: 100px;
-                }
-                transition: 0.2s;
-                &:hover {
-                    transform: scale(1.2);
-                }
+            transition: 0.2s;
+            &:hover {
+                transform: scale(1.2);
             }
         }
+    }
 }
 </style>
 

@@ -53,6 +53,7 @@
 .footer {
     width: 100%;
     background-color: #333;
+    box-shadow: 0 -2px 12px rgba($color: #333, $alpha: 0.34);
     &-ctx {
         max-width: $wrap;
         height: 190px;

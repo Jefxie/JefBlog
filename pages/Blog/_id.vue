@@ -74,6 +74,18 @@ export default {
             immediate: true
         }
     },
+    head() { 
+        return {
+            title: "博客|分类|" + this.paramsId,
+            meta: [
+                {
+                    hid: this.paramsId,
+                    name: this.paramsId,
+                    content: "Jef.site 雨夜客栈(博客)"
+                }
+            ]
+        };
+    },
     methods: {
         ...mapActions(["getArticleList"]),
         initArticleList(ispush = false, page = 1, total = 10) {
@@ -92,7 +104,7 @@ export default {
             this.initArticleList(true, _page);
         },
         goToDetail(id) {
-            this.$router.push("/blog/detail/" + id + '.html');
+            this.$router.push("/blog/detail/" + id + ".html");
         }
     }
 };

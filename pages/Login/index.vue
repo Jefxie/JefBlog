@@ -8,20 +8,27 @@
 </template>
 <script>
 import Cookies from "js-cookie";
+import { mapActions } from "vuex";
 export default {
     name: "login",
     watch: {
         $route: {
             handler: function(val, old) {
+                Cookies.set("_jefLoginFlag", 1);
                 setTimeout(() => {
-                    const _url =
-                        Cookies.get("_returnUrl") || "/";
+                    
+                    this.getUserInfo();
+
+                    const _url = Cookies.get("_returnUrl") || "/";
                     Cookies.remove("_returnUrl");
                     this.$router.push(_url);
                 }, 2000);
             },
             immediate: true
         }
+    },
+    methods: {
+        ...mapActions(["getUserInfo"])
     }
 };
 </script>

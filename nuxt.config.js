@@ -3,15 +3,15 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: "{{ name }}",
-    titleTemplate: "%s - Jef.site",
+    title: "雨夜客栈(博客)",
+    titleTemplate: "%s - Jef.site 雨夜客栈(博客)",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: "Jef.site 雨夜博客"
+        content: "Jef.site 雨夜客栈(博客)"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
