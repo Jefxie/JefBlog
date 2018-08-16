@@ -33,9 +33,9 @@
                         <Icon type="md-arrow-dropdown" />
                     </div>
                     <ul class="user-mgr" slot="content">
-                        <li class="user-mgr-li">个人中心</li>
+                        <li @click="jumpTo('/user/'+userInfo.login)" class="user-mgr-li">个人中心</li>
                         <li class="user-mgr-li">写文章</li>
-                        <li class="user-mgr-li">管理中心</li>
+                        <li @click="jumpTo('/manage')" class="user-mgr-li">管理中心</li>
                         <li @click="logout" class="user-mgr-li">退出登录</li>
                     </ul>
                 </Poptip>
@@ -87,7 +87,7 @@ export default {
             window.location.href = _target;
         },
         logout() {
-            this.userLogout(this.$Message.success("退出成功"));
+            this.userLogout();
         }
     }
 };

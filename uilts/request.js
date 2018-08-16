@@ -1,5 +1,5 @@
 import axios from "axios";
-import vm from "vue";
+import { Message } from "iview";
 
 axios.defaults.baseURL = "http://127.0.0.1:7001";
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -23,10 +23,9 @@ axios.interceptors.response.use(
   function(response) {
     // Do something with response data
     const data = response.data || {};
-    // debugger;
     if (data.err || false) {
       console.log(data.msg);
-      vm.$Message.error(data.msg);
+      Message.error(data.msg);
       return Promise.reject(data);
     }
     return data;

@@ -8,8 +8,11 @@ import {
   BackTop,
   Avatar,
   Poptip,
-  Modal,
-  Message
+  Tabs,
+  Divider,
+  TabPane,
+  Table,
+  Modal
 } from "iview";
 
 Vue.component("Button", Button);
@@ -19,5 +22,8 @@ Vue.component("Icon", Icon);
 Vue.component("BackTop", BackTop);
 Vue.component("Avatar", Avatar);
 Vue.component("Poptip", Poptip);
-
-Vue.prototype.$Message = Message;
+Vue.component("Divider", Divider);
+Vue.component("Tabs", Tabs);
+Vue.component("TabPane", TabPane);
+Vue.component("Table", Table);
+Vue.component("Modal", Modal);

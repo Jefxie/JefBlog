@@ -4,12 +4,12 @@
         <p class="list-ctx">{{data.abstract}}</p>
         <div class="list-foot">
             <div class="list-foot-l">
-                <span class="list-foot-category">{{data.category}}</span>
-                <span class="list-foot-author">
+                <span @click="jumpTo('/blog/'+data.category.alias)" class="list-foot-category point">{{data.category.name}}</span>
+                <span class="list-foot-author point" @click="jumpTo('/user/'+data.author.login)">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-yonghu"></use>
                     </svg>
-                    {{data.author}}</span>
+                    {{data.author.name}}</span>
                 <span class="list-foot-time">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-shijian"></use>
@@ -38,7 +38,7 @@
     </div>
 </template>
 <script>
-import date from "~/uilts/date"
+import date from "~/uilts/date";
 export default {
     name: "x-list",
     props: {
@@ -59,14 +59,17 @@ export default {
             }
         }
     },
-    filters:{
-        formatTime(t){
-            return date(t).format('YYYY-MM-DD HH:mm:ss')
+    filters: {
+        formatTime(t) {
+            return date(t).format("YYYY-MM-DD HH:mm:ss");
         }
     },
-    methods:{
-        emitTo(){
-            this.$emit('detail',this.data.id)
+    methods: {
+        emitTo() {
+            this.$emit("detail", this.data.id);
+        },
+        jumpTo(to) {
+            this.$router.push(to);
         }
     }
 };
@@ -109,5 +112,8 @@ export default {
             }
         }
     }
+}
+.point{
+    cursor: pointer;
 }
 </style>

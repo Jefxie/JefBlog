@@ -16,13 +16,13 @@ export default {
             handler: function(val, old) {
                 Cookies.set("_jefLoginFlag", 1);
                 setTimeout(() => {
-                    
+
                     this.getUserInfo();
 
                     const _url = Cookies.get("_returnUrl") || "/";
                     Cookies.remove("_returnUrl");
                     this.$router.push(_url);
-                }, 2000);
+                }, 1000);
             },
             immediate: true
         }
