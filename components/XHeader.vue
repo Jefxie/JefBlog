@@ -34,7 +34,7 @@
                     </div>
                     <ul class="user-mgr" slot="content">
                         <li @click="jumpTo('/user/'+userInfo.login)" class="user-mgr-li">个人中心</li>
-                        <li class="user-mgr-li">写文章</li>
+                        <li @click="jumpTo('/writer')" class="user-mgr-li">写文章</li>
                         <li @click="jumpTo('/manage')" class="user-mgr-li">管理中心</li>
                         <li @click="logout" class="user-mgr-li">退出登录</li>
                     </ul>

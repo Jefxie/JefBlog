@@ -15,7 +15,13 @@
     <div id="app" class="app">
         <div class="app-left"></div>
         <div class="app-right">
-                <i-editor v-model="content"></i-editor>
+                <i-editor 
+                    v-model="content" 
+                    :autosize="{minRows: 38,maxRows: 40}"
+                    :paste="true",
+                    config="config"
+                    @before-upload="beforeUpload"
+                ></i-editor>
         </div>
     </div>
 </body>

@@ -27,6 +27,13 @@
             <p>{{userData.bio}}</p>
         </div>
 
+       <div class="user-notic">
+           <h3>消息列表</h3>
+            <Tabs value="name1">
+                <TabPane label="未读" name="name1">标签一的内容</TabPane>
+                <TabPane label="已读" name="name2">标签二的内容</TabPane>
+            </Tabs>
+       </div>
     </div>
 </template>
 <script>
@@ -45,7 +52,8 @@ export default {
                 location: "",
                 blog: "",
                 bio: ""
-            }
+            },
+            noticeShow: false
         };
     },
     computed: {
@@ -53,7 +61,8 @@ export default {
     },
     head() {
         return {
-            title: `${this.userData.name||''}(${this.userData.login||''})的个人主页`,
+            title: `${this.userData.name || ""}(${this.userData.login ||
+                ""})的个人主页`,
             meta: [
                 {
                     hid: "user",
@@ -70,6 +79,7 @@ export default {
                     this.userInfo.login &&
                     val.params.id == this.userInfo.login
                 ) {
+                    this.noticeShow = true;
                     Object.assign(this.userData, this.userInfo);
                 } else {
                     if (!val.params.id) return;
@@ -79,6 +89,9 @@ export default {
             },
             immediate: true
         }
+    },
+    methods:{
+        
     }
 };
 </script>

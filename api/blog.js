@@ -14,3 +14,7 @@ export function GetArticleList(category = "", total = 10, page = 1) {
 export function GetArticleDetail(id = "") {
   return request.get("/api/article/" + id);
 }
+
+export function RemoveArticle(id = "") {
+  return request({ url: "/api/article", methods: "DELETE", data: { id } });
+}

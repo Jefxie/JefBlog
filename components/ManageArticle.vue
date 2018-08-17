@@ -1,6 +1,20 @@
 <template>
     <div class="mgr-article">
         <Table size='default' :columns="columns" :data="listData" @on-sort-change="categorySort"></Table>
+
+        <Modal v-model="delModal" width="360" :transfer="true">
+            <p slot="header" style="color:#f60;text-align:center">
+                <Icon type="ios-information-circle"></Icon>
+                <span>删除确认</span>
+            </p>
+            <div style="text-align:center">
+                <p>确认删除这个文章？</p>
+                <p>Will you delete it?</p>
+            </div>
+            <div slot="footer">
+                <Button type="error" size="large" long :loading="del_loading" @click="deleteCol">删除</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 <script>
@@ -10,6 +24,9 @@ export default {
     name: "ManageArticle",
     data() {
         return {
+            delModal: false,
+            del_loading: false,
+            curId: "",
             columns: [
                 {
                     title: "分类",
@@ -45,7 +62,6 @@ export default {
                                     },
                                     on: {
                                         click: () => {
-                                            // this.show(params.index);
                                             console.log(params);
                                         }
                                     }
@@ -61,7 +77,8 @@ export default {
                                     },
                                     on: {
                                         click: () => {
-                                            this.remove(params.index);
+                                            this.delModal = true;
+                                            this.curId = params.row.id;
                                         }
                                     }
                                 },
@@ -104,7 +121,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["getArticleList"]),
+        ...mapActions(["removeArticle"]),
         categorySort(data) {
             if (data.order == "asc" && this.curKey.i == 0) return;
             if (data.order == "desc" && this.curKey.i == this.allKey.length - 1)
@@ -113,9 +130,24 @@ export default {
             const i = eval(
                 `${this.curKey.i}${data.order == "asc" ? "-" : "+"}1`
             );
-            console.log('iii',i)
+            console.log("iii", i);
             this.curKey.name = this.allKey[i];
             this.curKey.i = i;
+        },
+        deleteCol() {
+            this.del_loading = true;
+            this.removeArticle({
+                id: this.curId,
+                key: this.curKey.name
+            })
+                .then(r => {
+                    this.del_loading = false;
+                    this.delModal = false;
+                })
+                .catch(e => {
+                    this.del_loading = false;
+                    this.delModal = false;
+                });
         }
     }
 };

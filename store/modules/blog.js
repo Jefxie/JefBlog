@@ -1,5 +1,5 @@
 import vm from "vue";
-import { GetCategoryList, GetArticleList } from "~/api/blog";
+import { GetCategoryList, GetArticleList, RemoveArticle } from "~/api/blog";
 
 export default {
   state: {
@@ -15,6 +15,15 @@ export default {
     },
     PUSH_ARTICLELIST(state, data) {
       state.articleList[data.key].push(...data.val);
+    },
+    REMOVE_ARTICLE(state, data) {
+      const _data = state.articleList[data.key];
+      for (let i = 0, len = _data.length; i < len; i++) {
+        if (_data[i].id == data.id) {
+          vm.delete(_data, i);
+          break;
+        }
+      }
     }
   },
   actions: {
@@ -39,6 +48,15 @@ export default {
         const res = await GetArticleList(data.category);
         data.val = res.data;
         commit("ADD_ARTICLELIST", data);
+      }
+    },
+    async removeArticle({ commit }, data) {
+      try {
+        await RemoveArticle(data.id);
+        commit("REMOVE_ARTICLE", data);
+        return Promise.resolve(1);
+      } catch (error) {
+        return Promise.reject(0);
       }
     }
   }

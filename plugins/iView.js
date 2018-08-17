@@ -12,7 +12,11 @@ import {
   Divider,
   TabPane,
   Table,
-  Modal
+  Modal,
+  Form,
+  FormItem,
+  Input,
+  Upload
 } from "iview";
 
 Vue.component("Button", Button);
@@ -27,3 +31,7 @@ Vue.component("Tabs", Tabs);
 Vue.component("TabPane", TabPane);
 Vue.component("Table", Table);
 Vue.component("Modal", Modal);
+Vue.component("Form", Form);
+Vue.component("FormItem", FormItem);
+Vue.component("Input", Input);
+Vue.component("Upload", Upload);

@@ -27,9 +27,9 @@ export default {
             default: "all"
         }
     },
-    methods:{
-        jumpTo(target){
-            this.$router.push('/blog/'+target)
+    methods: {
+        jumpTo(target) {
+            this.$router.push("/blog/" + target);
         }
     }
 };

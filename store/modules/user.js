@@ -33,6 +33,7 @@ export default {
       } catch (error) {
         Cookie.remove("_jefLoginFlag");
       }
-    }
+    },
+    
   }
 };
