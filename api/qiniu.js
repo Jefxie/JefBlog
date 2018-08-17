@@ -1,7 +1,7 @@
 import request from "~/uilts/request";
 
 export function GetQiniuToken() {
-  return request("/api/qiniu");
+  return request("/api/qiniu/token");
 }
 
 export function UploadFileToQiniu(file, token) {
