@@ -92,7 +92,7 @@ export default {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 999999;
+    z-index: 10;
 }
 .container.pads {
     padding-top: 57px;

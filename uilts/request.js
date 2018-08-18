@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Message } from "iview";
 
-axios.defaults.baseURL = "http://127.0.0.1:7001";
+axios.defaults.baseURL = "https://api.jef.site";
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";

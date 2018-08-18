@@ -1,6 +1,12 @@
 .<template>
     <div class="slidebar">
-        <ul>
+        <XRadioGrop
+        :alias="active"
+        :list="gropList"
+        @aliaser="jumpTo"
+        styles="margin-right: 6px;margin-bottom: 6px;"
+         />
+        <!-- <ul>
             <li class="slidebar-item" :class="active=='all'?'active':''" @click="jumpTo('all')">
                 <div>&nbsp;全部</div>
                 <Icon type="ios-arrow-forward" />
@@ -11,10 +17,12 @@
                     <Icon type="ios-arrow-forward" />
                 </li>
             </template>
-        </ul>
+        </ul> -->
     </div>
 </template>
 <script>
+import XRadioGrop from "~/components/XRadioGrop";
+
 export default {
     name: "xsidebar",
     props: {
@@ -26,6 +34,19 @@ export default {
             type: String,
             default: "all"
         }
+    },
+    computed: {
+        gropList() {
+            const _a = {
+                name: "全部",
+                alias: "all",
+                id: "123"
+            };
+            return [_a, ...this.list];
+        }
+    },
+    components: {
+        XRadioGrop
     },
     methods: {
         jumpTo(target) {
@@ -40,6 +61,8 @@ export default {
 
 .slidebar {
     width: 100%;
+    padding: 20px;
+    padding-left: 0;
     ul {
         width: 100%;
     }

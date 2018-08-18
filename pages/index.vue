@@ -4,16 +4,38 @@
         <x-banner />
     </div>
     <div class="home-context">
-        <x-line text="推荐分类"></x-line>
+        <x-line text="GitHub"></x-line>
         <div class="home-category">
-            <template v-for="(item,i) in categoryList">
-                <x-plaque 
-                :key="i"
-                :title="item.name"
-                :alias="item.alias"
-                :text="item.brief">
-                </x-plaque>
-            </template>
+            <!-- <template v-for="(item,i) in categoryList"> -->
+                <a href="https://github.com/Jefxie/JefBlogServer" target="_blank">
+                    <x-plaque 
+                    title="JefServer"
+                    alias="node"
+                    text="这个网站的后台系统，基于NodeJS Egg框架开发。">
+                    </x-plaque>
+                </a>
+                <a href="https://github.com/Jefxie/JefBlog" target="_blank">
+                    <x-plaque 
+                    title="JefBlog"
+                    alias="vue"
+                    text="使用Nuxt开发的服务器端渲染的博客展示和管理实践项目。">
+                    </x-plaque>
+                </a>
+                <a href="https://github.com/Jefxie/blog-server_v2" target="_blank">
+                    <x-plaque 
+                    title="ServerV2"
+                    alias="koa"
+                    text="使用KOA2加TypeScript配合PG开发的接口，前期上手项目。">
+                    </x-plaque>
+                </a>
+                <a href="https://github.com/Jefxie/image-server" target="_blank">
+                    <x-plaque 
+                    title="Image"
+                    alias="koa"
+                    text="使用KOA2写的静态资源服务器，上传图片会转成Webp。">
+                    </x-plaque>
+                </a>
+            <!-- </template> -->
         </div>
         <x-line text="自豪地使用"></x-line>
         <!-- 框架logo -->

@@ -1,6 +1,7 @@
 <template>
   <div class="editor-wrapper">
-    <div :id="editorId"></div>
+    <div :id="barId" class="editor-bar"></div>
+    <div :id="editorId" class="editor-ctx"></div>
   </div>
 </template>
 
@@ -44,16 +45,19 @@ export default {
         imgStyle: {
             type: String,
             default:
-                "?imageMogr2/auto-orient/thumbnail/650x650>/format/webp/blur/1x0/quality/80|watermark/1/image/aHR0cDovL2ltYWdlLmplZi5zaXRlL3N5LmxvZ28ucG5n/dissolve/60/gravity/SouthEast/dx/10/dy/10"
+                "imageMogr2/auto-orient/thumbnail/650x650>/format/webp/blur/1x0/quality/80|watermark/1/image/aHR0cDovL2ltYWdlLmplZi5zaXRlL2xvZ29fdzUwLnBuZw==/dissolve/30/gravity/SouthEast/dx/10/dy/10"
         }
     },
     computed: {
         editorId() {
             return `editor${this._uid}`;
+        },
+        barId() {
+            return `bar${this._uid}`;
         }
     },
     mounted() {
-        this.editor = new Editor(`#${this.editorId}`);
+        this.editor = new Editor(`#${this.barId}`,`#${this.editorId}`);
 
         this.editor.customConfig.onchange = html => {
             let text = this.editor.txt.text();
@@ -61,6 +65,8 @@ export default {
             this.$emit("input", this.valueType === "html" ? html : text);
             this.$emit("on-change", html, text);
         };
+        this.editor.customConfig.zIndex = 2;
+
         this.editor.customConfig.onchangeTimeout = this.changeInterval;
         // 自定义上传事件
         this.editor.customConfig.customUploadImg = this.customUploadImg;
@@ -91,8 +97,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "~/assets/styles/variable.scss";
+
 .editor-wrapper {
     width: 100%;
     min-height: 600px;
+    
 }
+.editor{
+    &-bar{
+        background-color: $bg_1;
+    }
+    &-ctx{
+        min-height: 600px;
+        border: 1px solid rgba($color: $font_3, $alpha: .3);
+        background-color: $bg_2;
+        font-size: 14px;
+    }
+}
+
 </style>

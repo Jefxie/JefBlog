@@ -1,5 +1,11 @@
 import vm from "vue";
-import { GetCategoryList, GetArticleList, RemoveArticle } from "~/api/blog";
+import {
+  GetCategoryList,
+  GetArticleList,
+  RemoveArticle,
+  AddCategory,
+  AddAtricle
+} from "~/api/blog";
 
 export default {
   state: {
@@ -9,6 +15,9 @@ export default {
   mutations: {
     ADD_CATEGORYLIST(state, v) {
       vm.set(state, "categoryList", v);
+    },
+    PUSH_CATEGORY(state, v) {
+      state.categoryList.push(v);
     },
     ADD_ARTICLELIST(state, data) {
       vm.set(state.articleList, data.key, data.val);
@@ -57,6 +66,27 @@ export default {
         return Promise.resolve(1);
       } catch (error) {
         return Promise.reject(0);
+      }
+    },
+    async addCategory({ commit }, data) {
+      try {
+        const res = await AddCategory(data.name, data.alias);
+        commit("PUSH_CATEGORY", res.data);
+        return Promise.resolve(1);
+      } catch (error) {
+        return Promise.reject(0);
+      }
+    },
+    async addArticle({ commit }, data) {
+      try {
+        const res = await AddAtricle(data);
+        commit("PUSH_ARTICLELIST", {
+          key: "all",
+          val: res.data
+        });
+        return Promise.resolve(1)
+      } catch (error) {
+        return Promise.reject(0)
       }
     }
   }

@@ -1,14 +1,18 @@
 import vm from "vue";
 import Cookie from "js-cookie";
-import { GetUserInfo, UserLogout } from "~/api/user";
+import { GetUserInfo, UserLogout, GetGitHubStar } from "~/api/user";
 
 export default {
   state: {
-    userInfo: {}
+    userInfo: {},
+    gitHubStar: 0
   },
   mutations: {
     SET_USERINFO(state, v) {
       vm.set(state, "userInfo", v);
+    },
+    ADD_STAR(state, v) {
+      vm.set(state, "gitHubStar", v);
     }
   },
   actions: {
@@ -34,6 +38,10 @@ export default {
         Cookie.remove("_jefLoginFlag");
       }
     },
-    
+    async getGitHubStar({ commit, state }) {
+      if (state.gitHubStar) return;
+      const res = await GetGitHubStar();
+      commit("ADD_STAR", res.stargazers_count);
+    }
   }
 };

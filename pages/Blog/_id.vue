@@ -13,10 +13,17 @@
             </div>
         </div>
         <div class="blog-bar">
-            <h3 class="blog-bar-title"><Icon type="ios-keypad" />&nbsp;文章分类</h3>
+            <h3 class="blog-bar-title"><Icon type="ios-keypad" />&nbsp;标签分类</h3>
             <x-sidebar 
             :list="categoryList"
             :active="paramsId" />
+            <div class="blog-bar-logo">
+                <img src="../../assets/images/logo.r.png" alt="">
+                <span>雨夜</span>
+            </div>
+            <div class="blog-bar-github">
+                <x-github /> 
+            </div>    
         </div>
     </div>
 </template>
@@ -24,6 +31,7 @@
 import XSidebar from "~/components/XSidebar";
 import XSlide from "~/components/XSlider";
 import XList from "~/components/XList";
+import XGithub from "~/components/XGithub";
 import { mapGetters, mapActions } from "vuex";
 export default {
     name: "blog",
@@ -36,7 +44,8 @@ export default {
     components: {
         XSidebar,
         XSlide,
-        XList
+        XList,
+        XGithub
     },
     computed: {
         ...mapGetters(["categoryList", "articleList"]),
@@ -74,7 +83,7 @@ export default {
             immediate: true
         }
     },
-    head() { 
+    head() {
         return {
             title: "博客|分类|" + this.paramsId,
             meta: [
@@ -126,9 +135,30 @@ export default {
         width: $slide;
         padding: 0 10px;
 
+        &-logo {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            // border: 1px solid $jef_red;
+            border-radius: 6px;
+            box-shadow: 0 0 6px rgba($color: $font_3, $alpha: .3);
+            cursor: pointer;
+            span {
+                font-size: 50px;
+                margin-left: 10px;
+            }
+            img {
+                height: 53%;
+            }
+        }
+        &-github {
+            width: 100%;
+        }
         &-title {
             color: $font_3;
-            // border-left: 3px solid $jef_red;
         }
     }
     &-more {

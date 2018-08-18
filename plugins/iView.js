@@ -16,7 +16,10 @@ import {
   Form,
   FormItem,
   Input,
-  Upload
+  Upload,
+  Radio,
+  RadioGroup,
+  Tag
 } from "iview";
 
 Vue.component("Button", Button);
@@ -35,3 +38,6 @@ Vue.component("Form", Form);
 Vue.component("FormItem", FormItem);
 Vue.component("Input", Input);
 Vue.component("Upload", Upload);
+Vue.component("Radio", Radio);
+Vue.component("RadioGroup", RadioGroup);
+Vue.component("Tag", Tag);
