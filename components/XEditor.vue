@@ -75,6 +75,7 @@ export default {
         // 如果本地有存储加载本地存储内容
         let html = localStorage.editorCache;
         if (html) this.editor.txt.html(html);
+
     },
     methods: {
         // 七牛上传的方法
@@ -107,6 +108,10 @@ export default {
 .editor{
     &-bar{
         background-color: $bg_1;
+        position: fixed;
+        z-index: 11;
+        right: 15%;
+        top: 26px;
     }
     &-ctx{
         min-height: 600px;

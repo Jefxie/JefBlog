@@ -1,7 +1,8 @@
 <template>
     <div class="blog">
         <div class="blog-content">
-            <x-slide />
+            <x-slide
+            :list="slide" />
             <template v-for="(item,i) in articleList[paramsId]||[]">
                 <x-list
                 :key="i"
@@ -17,10 +18,10 @@
             <x-sidebar 
             :list="categoryList"
             :active="paramsId" />
-            <div class="blog-bar-logo">
+            <!-- <div class="blog-bar-logo">
                 <img src="../../assets/images/logo.r.png" alt="">
                 <span>雨夜</span>
-            </div>
+            </div> -->
             <div class="blog-bar-github">
                 <x-github /> 
             </div>    
@@ -38,7 +39,24 @@ export default {
     data() {
         return {
             paramsId: "all",
-            pages: {}
+            pages: {},
+            slide: [
+                {
+                    src:
+                        "http://hbfile.b0.upaiyun.com/img/home/banner/1bc004d49cb173857cf75507141a33a0070e7a831040a6",
+                    target: "/"
+                },
+                {
+                    src:
+                        "http://hbfile.b0.upaiyun.com/img/home/banner/cdf0a6ab627bc33af759533af558a118be5a1b1dd2d93",
+                    target: "/"
+                },
+                {
+                    src:
+                        "http://img.hb.aicdn.com/85a73d8b40798b16d18a560fe60a0dfb2b00ad334f9c6-t3oGRG_fw658",
+                    target: "/"
+                }
+            ]
         };
     },
     components: {
@@ -144,7 +162,7 @@ export default {
             margin-bottom: 20px;
             // border: 1px solid $jef_red;
             border-radius: 6px;
-            box-shadow: 0 0 6px rgba($color: $font_3, $alpha: .3);
+            box-shadow: 0 0 6px rgba($color: $font_3, $alpha: 0.3);
             cursor: pointer;
             span {
                 font-size: 50px;

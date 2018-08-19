@@ -21,7 +21,8 @@
 </template>
 <script>
 import { GetArticleDetail } from "~/api/blog";
-import date from "~/uilts/date"
+import date from "~/uilts/date";
+
 export default {
     name: "detail",
     data() {
@@ -29,9 +30,9 @@ export default {
             detailData: {}
         };
     },
-    computed:{
-        createAt(){
-            return date(this.detailData.create_at).format("YYYY年MM月DD日")
+    computed: {
+        createAt() {
+            return date(this.detailData.create_at).format("YYYY年MM月DD日");
         }
     },
     watch: {
@@ -62,7 +63,7 @@ export default {
         changeVal(obj, key) {
             if (!obj) return "";
             return obj[key];
-        }
+        },
     }
 };
 </script>
@@ -70,7 +71,6 @@ export default {
 <style lang='scss'>
 @import "~/assets/styles/variable.scss";
 // code 表格等样式
-@import "./style.scss";
 
 .detail {
     width: $wrap_s;
@@ -89,7 +89,7 @@ export default {
     &-context {
         margin-top: 20px;
         font-size: 16px;
-        p{
+        p {
             margin: 10px 0;
             line-height: 28px;
             // text-indent:25px
@@ -97,7 +97,7 @@ export default {
         img {
             display: block;
             margin: 26px auto;
-            box-shadow: 0 0 6px rgba($color: black, $alpha: .3)
+            box-shadow: 0 0 6px rgba($color: black, $alpha: 0.3);
         }
         /* table 样式 */
         table {
@@ -138,8 +138,11 @@ export default {
         }
         pre code {
             display: block;
+            background-color: #f1f1f1;
         }
-
+        pre{
+            overflow: scroll;
+        }
         /* ul ol 样式 */
         ul,
         ol {

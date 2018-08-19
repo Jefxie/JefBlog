@@ -6,18 +6,6 @@
         @aliaser="jumpTo"
         styles="margin-right: 6px;margin-bottom: 6px;"
          />
-        <!-- <ul>
-            <li class="slidebar-item" :class="active=='all'?'active':''" @click="jumpTo('all')">
-                <div>&nbsp;全部</div>
-                <Icon type="ios-arrow-forward" />
-            </li>
-            <template v-for="(item,i) in list">
-                <li class="slidebar-item" :class="active==item.alias?'active':''" :key="i" @click="jumpTo(item.alias)">
-                    <div>&nbsp;{{item.name}}</div>
-                    <Icon type="ios-arrow-forward" />
-                </li>
-            </template>
-        </ul> -->
     </div>
 </template>
 <script>

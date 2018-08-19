@@ -1,18 +1,12 @@
 <template>
     <div class="xslider">
         <Carousel :height="carHeight" autoplay v-model="slideVal" loop>
-            <CarouselItem>
-                <div class="xslider-page">1</div>
-            </CarouselItem>
-            <CarouselItem>
-                <div class="xslider-page">2</div>
-            </CarouselItem>
-            <CarouselItem>
-                <div class="xslider-page">3</div>
-            </CarouselItem>
-            <CarouselItem>
-                <div class="xslider-page">4</div>
-            </CarouselItem>
+            <template v-for="(item,i) in list">
+                <CarouselItem :key="i">
+                    <a class="xslider-page" :href="item.target" :style="`background-image:url('${item.src}')`">
+                    </a>
+                </CarouselItem>
+            </template>
         </Carousel>
     </div>
 </template>
@@ -24,7 +18,19 @@ export default {
             slideVal: 0,
             carHeight:270
         };
+    },
+    props:{
+        list:{
+            type:Array,
+            default:()=>[
+                {
+                    src:'',
+                    target:''
+                }
+            ]
+        }
     }
+
 };
 </script>
 <style scoped lang="scss">
@@ -36,9 +42,12 @@ export default {
     border-radius: 6px;
     overflow: hidden;
     &-page {
+        display: block;
         height: 100%;
-        background-color: skyblue;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 }
 </style>
-

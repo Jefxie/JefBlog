@@ -81,10 +81,12 @@ export default {
             const _url = window.location.href;
             Cookies.set(
                 "_returnUrl",
+                // _url.replace("http://localhost:3010", "")
                 _url.replace("https://www.jef.site", "")
             );
+            // const _target = "http://127.0.0.1:7001/passport/github";
             const _target = "https://api.jef.site/passport/github";
-            window.location.href = _target;
+            window.location.assign(_target);
         },
         logout() {
             this.userLogout();
