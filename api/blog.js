@@ -19,9 +19,38 @@ export function GetArticleDetail(id = "") {
 }
 
 export function RemoveArticle(id = "") {
-  return request({ url: "/api/article", methods: "DELETE", data: { id } });
+  return request({ url: "/api/article", method: "DELETE", data: { id } });
 }
 
 export function AddAtricle(data) {
-  return request.post('/api/article',data);
+  return request.post("/api/article", data);
+}
+
+export function GetComment(id = "") {
+  return request.get(`/api/comment?id=${id}`);
+}
+
+export function AddComment(data) {
+  return request.post(`/api/comment`, data);
+}
+
+export function DeleteComment(id) {
+  console.log(111, id);
+  return request({
+    url: "/api/comment",
+    method: "DELETE",
+    data: { id: id }
+  });
+}
+
+export function GetNoticeCount(id,state){
+  return request.post('/api/notice',{id,state})
+}
+
+export function GetNoticeList(id,state){
+  return request.get(`/api/notice?id=${id}&state=${state}`);
+}
+
+export function ModifyNotice(id){
+  return request.get('/api/notice/'+id);
 }

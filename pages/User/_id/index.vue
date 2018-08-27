@@ -27,42 +27,54 @@
             <p>{{userData.bio}}</p>
         </div>
 
-       <div class="user-notic">
-           <h3>消息列表</h3>
-            <Tabs value="name1">
-                <TabPane label="未读" name="name1">标签一的内容</TabPane>
-                <TabPane label="已读" name="name2">标签二的内容</TabPane>
+       <div v-if="showNoticeList" class="user-notic">
+           <!-- <h3>消息列表</h3> -->
+            <Divider orientation="center">消息列表</Divider>
+            <Tabs value="name1" @on-click="changeTabs">
+                <TabPane label="未读" name="name1">
+                    <x-notice-list 
+                    :list="noticeList['name1']||[]" />
+                </TabPane>
+                <TabPane label="已读" name="name2">
+                    <x-notice-list 
+                    :list="noticeList['name2']||[]" />
+                </TabPane>
             </Tabs>
        </div>
     </div>
 </template>
 <script>
 import { GetUserInfo } from "~/api/user";
+import { GetNoticeList } from "~/api/blog";
 import { mapGetters } from "vuex";
-
+import XNoticeList from "~/components/XNoticeList";
 export default {
     name: "user",
     data() {
         return {
-            userData: {
-                avatar_url: "",
-                name: "",
-                login: "",
-                email: "",
-                location: "",
-                blog: "",
-                bio: ""
-            },
-            noticeShow: false
+            userData: {},
+            noticeShow: false,
+            noticeList: {}
         };
     },
+    components: {
+        XNoticeList
+    },
     computed: {
-        ...mapGetters(["userInfo"])
+        ...mapGetters(["userInfo"]),
+        showNoticeList() {
+            const _login = this.$route.params.id;
+            if (this.userInfo && this.userInfo.login === _login) {
+                return true;
+            }
+            return false;
+        }
     },
     head() {
         return {
-            title: `${this.userData.name || ""}(${this.userData.login ||
-                ""})的个人主页`,
+            title: `${this.userData ? this.userData.name : ""}(${
+                this.userData ? this.userData.login : ""
+            })的个人主页`,
             meta: [
                 {
                     hid: "user",
@@ -81,6 +93,7 @@ export default {
                 ) {
                     this.noticeShow = true;
                     Object.assign(this.userData, this.userInfo);
+                    this.getNoticeList(this.userInfo.id, 1);
                 } else {
                     if (!val.params.id) return;
                     const res = await GetUserInfo(val.params.id);
@@ -90,8 +103,19 @@ export default {
             immediate: true
         }
     },
-    methods:{
-        
+    methods: {
+        async getNoticeList(id, state = 1) {
+            const name = state == 1 ? "name1" : "name2";
+            if (this.noticeList[name]) {
+                return;
+            }
+            const res = await GetNoticeList(id, state);
+            this.$set(this.noticeList, name, res.data);
+        },
+        changeTabs(name) {
+            const state = name == "name1" ? 1 : 0;
+            this.getNoticeList(this.userInfo.id, state);
+        }
     }
 };
 </script>

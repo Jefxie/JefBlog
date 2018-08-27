@@ -19,7 +19,8 @@ import {
   Upload,
   Radio,
   RadioGroup,
-  Tag
+  Tag,
+  Badge
 } from "iview";
 
 Vue.component("Button", Button);
@@ -41,3 +42,4 @@ Vue.component("Upload", Upload);
 Vue.component("Radio", Radio);
 Vue.component("RadioGroup", RadioGroup);
 Vue.component("Tag", Tag);
+Vue.component("Badge", Badge);

@@ -4,13 +4,18 @@ import {
   GetArticleList,
   RemoveArticle,
   AddCategory,
-  AddAtricle
+  AddAtricle,
+  GetArticleDetail,
+  GetComment,
+  DeleteComment
 } from "~/api/blog";
 
 export default {
   state: {
     categoryList: [],
-    articleList: {}
+    articleList: {},
+    detailData: {},
+    commentList: []
   },
   mutations: {
     ADD_CATEGORYLIST(state, v) {
@@ -31,6 +36,21 @@ export default {
         if (_data[i].id == data.id) {
           vm.delete(_data, i);
           break;
+        }
+      }
+    },
+    ADD_DETAILDATA(state, data) {
+      vm.set(state, "detailData", data);
+    },
+    ADD_COMMENTLIST(state, data) {
+      vm.set(state, "commentList", data);
+    },
+    DEL_ONECOMMENT(state, id) {
+      const list = state.commentList;
+      for (let i = 0, len = list.length; i < len; i++) {
+        if (list[i].id === id) {
+          // list.splice(i,1)
+          vm.delete(list, i);
         }
       }
     }
@@ -84,9 +104,25 @@ export default {
           key: "all",
           val: res.data
         });
-        return Promise.resolve(1)
+        return Promise.resolve(1);
       } catch (error) {
-        return Promise.reject(0)
+        return Promise.reject(0);
+      }
+    },
+    async addDetailData({ commit }, id) {
+      const res = await GetArticleDetail(id);
+      commit("ADD_DETAILDATA", res.data);
+    },
+    async addCommentList({ commit }, id) {
+      const res = await GetComment(id);
+      commit("ADD_COMMENTLIST", res.data);
+    },
+    async deleteComment({ commit }, id) {
+      try {
+        await DeleteComment(id);
+        commit("DEL_ONECOMMENT", id);
+      } catch (error) {
+        console.log(error)
       }
     }
   }

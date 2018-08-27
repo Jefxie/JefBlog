@@ -5,6 +5,7 @@
         :clarity="isHome&&isClarity" 
         :headers='headers'
         :active="curPath"
+        :noticeCount="noticeCount"
       />
     </header>
     <div class="container" :class="isHome?'':'pads'">
@@ -18,7 +19,8 @@
 import Cookies from "js-cookie";
 import XHeader from "~/components/XHeader";
 import XFooter from "~/components/XFooter";
-import { mapActions } from "vuex";
+import { GetNoticeCount } from "~/api/blog";
+import { mapActions, mapGetters } from "vuex";
 export default {
     name: "layout",
     data() {
@@ -26,6 +28,7 @@ export default {
             isClarity: true,
             isHome: false,
             curPath: "",
+            noticeCount: 0,
             headers: [
                 {
                     name: "首页",
@@ -34,17 +37,20 @@ export default {
                 {
                     name: "博客",
                     path: "/blog"
-                },
-                {
-                    name: "Pwa",
-                    path: "/pwa"
                 }
+                // {
+                //     name: "Pwa",
+                //     path: "/pwa"
+                // }
             ]
         };
     },
     components: {
         XHeader,
         XFooter
+    },
+    computed: {
+        ...mapGetters(["userInfo"])
     },
     created() {
         this.getCategoryList();
@@ -56,9 +62,13 @@ export default {
     },
     watch: {
         $route: {
-            handler: function(val, old) {
-                this.getUserInfo();
-
+            handler: async function(val, old) {
+                if (this.userInfo && this.userInfo.id) {
+                    const res = await GetNoticeCount(this.userInfo.id,1);
+                    this.noticeCount = res.data;
+                } else {
+                    this.getUserInfo();
+                }
                 this.curPath = val.path;
                 if (val.path === "/") {
                     this.isHome = true;
@@ -67,6 +77,12 @@ export default {
                 this.isHome = false;
             },
             immediate: true
+        },
+        userInfo: async function(val, old) {
+            if (val.id) {
+                const res = await GetNoticeCount(val.id,1);
+                this.noticeCount = res.data;
+            }
         }
     },
     methods: {

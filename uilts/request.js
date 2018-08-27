@@ -10,6 +10,7 @@ axios.defaults.withCredentials = true;
 // Add a request interceptor
 axios.interceptors.request.use(
   function(config) {
+    // debugger
     // Do something before request is sent
     return config;
   },

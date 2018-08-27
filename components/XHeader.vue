@@ -28,12 +28,20 @@
                 placement="bottom"
                 :transfer="true" >
                     <div class="xheader-user">
-                        <Avatar shape="square" :src="userInfo.avatar_url" icon="ios-person" size="default" />
+                        <div class="xheader-user-head">
+                            <i v-if="noticeCount>0">
+                                {{noticeCount}}
+                            </i>
+                            <Avatar shape="square" :src="userInfo.avatar_url" icon="ios-person" size="default" />
+                        </div>
                         <i>{{userInfo.name}}</i>
                         <Icon type="md-arrow-dropdown" />
                     </div>
                     <ul class="user-mgr" slot="content">
-                        <li @click="jumpTo('/user/'+userInfo.login)" class="user-mgr-li">个人中心</li>
+                        <li @click="jumpTo('/user/'+userInfo.login)" class="user-mgr-li">
+                            个人中心
+                            <i v-if="noticeCount>0">({{noticeCount}})</i>
+                        </li>
                         <li @click="jumpTo('/writer')" class="user-mgr-li">写文章</li>
                         <li @click="jumpTo('/manage')" class="user-mgr-li">管理中心</li>
                         <li @click="logout" class="user-mgr-li">退出登录</li>
@@ -45,9 +53,8 @@
     </div>
 </template>
 <script>
-import Cookies from "js-cookie";
 import { mapActions, mapGetters } from "vuex";
-// import { UserLogIn } from "~/api/user";
+import { ToLogin } from "~/api/user";
 export default {
     name: "xheader",
     props: {
@@ -62,11 +69,16 @@ export default {
         active: {
             type: String,
             default: "/"
+        },
+        noticeCount: {
+            type: Number,
+            default: 0
         }
     },
     computed: {
         ...mapGetters(["userInfo"])
     },
+    mounted() {},
     methods: {
         ...mapActions(["userLogout"]),
         isActive(p) {
@@ -77,16 +89,8 @@ export default {
         jumpTo(to) {
             this.$router.push(to);
         },
-        async toLogin() {
-            const _url = window.location.href;
-            Cookies.set(
-                "_returnUrl",
-                // _url.replace("http://localhost:3010", "")
-                _url.replace("https://www.jef.site", "")
-            );
-            // const _target = "http://127.0.0.1:7001/passport/github";
-            const _target = "https://api.jef.site/passport/github";
-            window.location.assign(_target);
+        toLogin() {
+            ToLogin();
         },
         logout() {
             this.userLogout();
@@ -205,11 +209,32 @@ export default {
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        i {
+        & > i {
             margin-left: 10px;
             font-size: 16px;
             font-style: normal;
             color: #fe400e;
+        }
+
+        &-head {
+            position: relative;
+            i {
+                position: absolute;
+                min-width: 16px;
+                height: 16px;
+                top: -8px;
+                right: -8px;
+                padding: 5px;
+                padding-top: 8px;
+                background-color: #ed4014;
+                text-align: center;
+                line-height: 0;
+                color: white;
+                font-size: 12px;
+                font-style: normal;
+                border-radius: 16px;
+                z-index: 11;
+            }
         }
     }
 }
@@ -224,6 +249,10 @@ export default {
             // background-color: $jef_red;
             border-bottom: 1px solid $jef_red;
             cursor: pointer;
+        }
+        i{
+            color: $jef_red;
+            font-style: normal;
         }
     }
 }
