@@ -37,7 +37,7 @@
         <div v-else class="writer-markdown">
             <x-markdown-editor
             :height="700"
-            actions="http://upload-z2.qiniup.com"
+            :actions="upAction"
             theme="OneDark"
             :handler="markdownHandler"
             :initialValue="markdownInitVal"
@@ -56,6 +56,8 @@ import XMarkdownEditor from "~/components/XMarkdownEditor/index";
 import { GetQiniuToken } from "~/api/qiniu";
 import { Message } from "iview";
 import Cookies from "js-cookie";
+import ENV from "~/uilts/env.config";
+
 export default {
     name: "writer",
     data() {
@@ -77,10 +79,10 @@ export default {
     },
     created() {
         this.markdownInitVal = decodeURIComponent(
-            localStorage.MarkdownContentCach
+            localStorage.MarkdownContentCach || ""
         );
         const _article = Cookies.get("_article");
-        this.article.title = _article;
+        this.article.title = _article || "";
     },
 
     computed: {
@@ -90,6 +92,9 @@ export default {
                 start: this.markdownUploadImageStart,
                 end: this.markdownUploadImageEnd
             };
+        },
+        upAction() {
+            return ENV.imgAction;
         }
     },
     head() {
@@ -118,9 +123,7 @@ export default {
         },
         markdownUploadImageEnd(_data) {
             return Promise.resolve({
-                data:
-                    _data.data +
-                    "?imageMogr2/auto-orient/thumbnail/650x650>/format/webp/blur/1x0/quality/80|watermark/1/image/aHR0cDovL2ltYWdlLmplZi5zaXRlL2xvZ29fdzUwLnBuZw==/dissolve/30/gravity/SouthEast/dx/10/dy/10"
+                data: _data.data + ENV.imgParam
             });
         },
         markdownSave(e) {

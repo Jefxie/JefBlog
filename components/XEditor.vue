@@ -10,6 +10,8 @@ import Editor from "wangeditor";
 import "wangeditor/release/wangEditor.min.css";
 import { oneOf } from "~/uilts/tools";
 import { UploadFileToQiniu, GetQiniuToken } from "~/api/qiniu";
+import ENV from "~/uilts/env.config";
+
 export default {
     name: "xEditor",
     props: {
@@ -44,8 +46,7 @@ export default {
         // 图片处理样式
         imgStyle: {
             type: String,
-            default:
-                "imageMogr2/auto-orient/thumbnail/650x650>/format/webp/blur/1x0/quality/80|watermark/1/image/aHR0cDovL2ltYWdlLmplZi5zaXRlL2xvZ29fdzUwLnBuZw==/dissolve/30/gravity/SouthEast/dx/10/dy/10"
+            default: ENV.imgParam
         }
     },
     computed: {
@@ -57,7 +58,7 @@ export default {
         }
     },
     mounted() {
-        this.editor = new Editor(`#${this.barId}`,`#${this.editorId}`);
+        this.editor = new Editor(`#${this.barId}`, `#${this.editorId}`);
 
         this.editor.customConfig.onchange = html => {
             let text = this.editor.txt.text();
@@ -75,7 +76,6 @@ export default {
         // 如果本地有存储加载本地存储内容
         let html = localStorage.editorCache;
         if (html) this.editor.txt.html(html);
-
     },
     methods: {
         // 七牛上传的方法
@@ -103,22 +103,20 @@ export default {
 .editor-wrapper {
     width: 100%;
     min-height: 600px;
-    
 }
-.editor{
-    &-bar{
+.editor {
+    &-bar {
         background-color: $bg_1;
         position: fixed;
         z-index: 11;
         right: 15%;
         top: 26px;
     }
-    &-ctx{
+    &-ctx {
         min-height: 600px;
-        border: 1px solid rgba($color: $font_3, $alpha: .3);
+        border: 1px solid rgba($color: $font_3, $alpha: 0.3);
         background-color: $bg_2;
         font-size: 14px;
     }
 }
-
 </style>

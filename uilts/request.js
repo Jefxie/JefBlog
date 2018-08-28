@@ -1,16 +1,14 @@
 import axios from "axios";
 import { Message } from "iview";
+import ENV from "~/uilts/env.config";
 
-// axios.defaults.baseURL = "http://127.0.0.1:7001/";
-axios.defaults.baseURL = "https://api.jef.site/";
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.baseURL = ENV.baseURL;
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
 axios.defaults.withCredentials = true;
 // Add a request interceptor
 axios.interceptors.request.use(
   function(config) {
-    // debugger
     // Do something before request is sent
     return config;
   },
