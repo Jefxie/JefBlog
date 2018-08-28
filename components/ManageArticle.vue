@@ -130,7 +130,6 @@ export default {
             const i = eval(
                 `${this.curKey.i}${data.order == "asc" ? "-" : "+"}1`
             );
-            console.log("iii", i);
             this.curKey.name = this.allKey[i];
             this.curKey.i = i;
         },

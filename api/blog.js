@@ -35,7 +35,6 @@ export function AddComment(data) {
 }
 
 export function DeleteComment(id) {
-  console.log(111, id);
   return request({
     url: "/api/comment",
     method: "DELETE",
