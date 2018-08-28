@@ -1,5 +1,9 @@
 <template>
     <div class="user">
+        <span @click="$router.push('/user/edite')" class="user-edit">
+            <Icon type="ios-create-outline" />
+            编辑名片
+        </span>
         <div class="user-top">
             <img class="user-top-avatar" :src="userData.avatar_url" alt="">
             <div class="user-top-info">
@@ -30,14 +34,14 @@
        <div v-if="showNoticeList" class="user-notic">
            <!-- <h3>消息列表</h3> -->
             <Divider orientation="center">消息列表</Divider>
-            <Tabs value="name1" @on-click="changeTabs">
-                <TabPane label="未读" name="name1">
+            <Tabs value="readNotice" @on-click="changeTabs">
+                <TabPane label="未读" name="readNotice">
                     <x-notice-list 
-                    :list="noticeList['name1']||[]" />
+                    :list="readNotice" />
                 </TabPane>
-                <TabPane label="已读" name="name2">
+                <TabPane label="已读" name="unReadNotice">
                     <x-notice-list 
-                    :list="noticeList['name2']||[]" />
+                    :list="unReadNotice" />
                 </TabPane>
             </Tabs>
        </div>
@@ -54,7 +58,8 @@ export default {
         return {
             userData: {},
             noticeShow: false,
-            noticeList: {}
+            readNotice: [],
+            unReadNotice: []
         };
     },
     components: {
@@ -105,15 +110,15 @@ export default {
     },
     methods: {
         async getNoticeList(id, state = 1) {
-            const name = state == 1 ? "name1" : "name2";
-            if (this.noticeList[name]) {
+            const name = state == 1 ? "readNotice" : "unReadNotice";
+            if (this[name].length > 0) {
                 return;
             }
             const res = await GetNoticeList(id, state);
-            this.$set(this.noticeList, name, res.data);
+            this.$set(this, name, res.data);
         },
         changeTabs(name) {
-            const state = name == "name1" ? 1 : 0;
+            const state = name == "readNotice" ? 1 : 0;
             this.getNoticeList(this.userInfo.id, state);
         }
     }
@@ -124,10 +129,21 @@ export default {
 @import "~/assets/styles/variable.scss";
 
 .user {
+    position: relative;
     width: $wrap_s;
     min-height: 580px;
     margin: 30px auto;
-
+    &-edit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 14px;
+        cursor: pointer;
+        color: $font_2;
+        &:hover {
+            color: $jef_red;
+        }
+    }
     &-top {
         display: flex;
 

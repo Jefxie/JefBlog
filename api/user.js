@@ -13,6 +13,15 @@ export function UserLogout() {
   return request.post("/api/user");
 }
 
+export function ModifyUserInfo(data) {
+  
+  return request({
+    method: "PUT",
+    url: "/api/user",
+    data
+  });
+}
+
 export function GetGitHubStar() {
   return request.get(ENV.githubStart, {
     withCredentials: false

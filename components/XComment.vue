@@ -1,7 +1,7 @@
 <template>
     <ul class="comment">
         <li class="comment-li" v-for="item in list" :key="item.id">
-            <img @click="jumpTo(item.author.login)" :src="item.avatar_url" :alt="item.author.login">
+            <img @click="jumpTo(item.author.login)" :src="item.author.avatar_url" :alt="item.author.login">
             <div class="comment-content">
                 <div class="comment-content-name">{{item.author.name}}</div>
                 <div class="comment-content-text">

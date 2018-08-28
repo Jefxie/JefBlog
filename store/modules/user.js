@@ -1,6 +1,11 @@
 import vm from "vue";
 import Cookie from "js-cookie";
-import { GetUserInfo, UserLogout, GetGitHubStar } from "~/api/user";
+import {
+  GetUserInfo,
+  UserLogout,
+  GetGitHubStar,
+  ModifyUserInfo
+} from "~/api/user";
 
 export default {
   state: {
@@ -10,6 +15,9 @@ export default {
   mutations: {
     SET_USERINFO(state, v) {
       vm.set(state, "userInfo", v);
+    },
+    MODIFY_USERINFO(state, data) {
+      Object.assign(state.userInfo, data);
     },
     ADD_STAR(state, v) {
       vm.set(state, "gitHubStar", v);
@@ -42,6 +50,21 @@ export default {
       if (state.gitHubStar) return;
       const res = await GetGitHubStar();
       commit("ADD_STAR", res.stargazers_count);
+    },
+    async modifyUserInfo({ commit }, data) {
+      const param = {};
+      for (const key in data) {
+        if (data[key]) {
+          param[key] = data[key];
+        }
+      }
+      try {
+        await ModifyUserInfo(param);
+        commit("MODIFY_USERINFO", param);
+        return Promise.resolve(1);
+      } catch (error) {
+        return Promise.reject(0);
+      }
     }
   }
 };
