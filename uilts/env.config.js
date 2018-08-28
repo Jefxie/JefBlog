@@ -1,5 +1,5 @@
-const ENV = "dev";
-// const ENV = 'prod';
+// const ENV = "dev";
+const ENV = 'prod';
 
 const URI = {
   dev: {
