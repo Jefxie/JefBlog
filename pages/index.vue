@@ -76,6 +76,11 @@
                         <use xlink:href="#icon-mongo-db"></use>
                     </svg>
                 </li>
+                <li>
+                    <a class="upyun" href="https://www.upyun.com/" target="_blank">
+                        <img src="../assets/images/up_logo1.png" alt="">
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -154,6 +159,13 @@ export default {
                 transform: scale(1.2);
             }
         }
+    }
+}
+.upyun{
+    display: block;
+    width: 116px;
+    img {
+        width: 100%;
     }
 }
 </style>
