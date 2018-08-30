@@ -1,51 +1,46 @@
 .<template>
     <div class="slidebar">
-        <XRadioGrop
-        :alias="active"
-        :list="gropList"
-        @aliaser="jumpTo"
-        styles="margin-right: 6px;margin-bottom: 6px;"
-         />
+        <XRadioGrop :alias="active" :list="gropList" @aliaser="jumpTo" styles="margin-right: 6px;margin-bottom: 6px;" />
     </div>
 </template>
 <script>
-import XRadioGrop from "~/components/XRadioGrop";
+import XRadioGrop from '~/components/XRadioGrop';
 
 export default {
-    name: "xsidebar",
+    name: 'xsidebar',
     props: {
         list: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         active: {
             type: String,
-            default: "all"
-        }
+            default: 'all',
+        },
     },
     computed: {
         gropList() {
             const _a = {
-                name: "全部",
-                alias: "all",
-                id: "123"
+                name: '全部',
+                alias: 'all',
+                id: '123',
             };
             return [_a, ...this.list];
-        }
+        },
     },
     components: {
-        XRadioGrop
+        XRadioGrop,
     },
     methods: {
         jumpTo(target) {
-            this.$router.push("/blog/" + target);
-        }
-    }
+            this.$router.push('/blog/' + target);
+        },
+    },
 };
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/styles/variable.scss";
+@import '~/assets/styles/variable.scss';
 
 .slidebar {
     width: 100%;

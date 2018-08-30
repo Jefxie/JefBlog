@@ -1,63 +1,61 @@
 <template>
-        <ul class="aside">
-            <!-- <div class="aside-tape" :key="i">
+    <ul class="aside">
+        <!-- <div class="aside-tape" :key="i">
                     <x-tape 
                     :start="tapeStart===undefined"
                     :revers="true">
                     </x-tape>
                 </div> -->
-            <li @click="changeActive(undefined)" @mouseover="changeCur(undefined)" @mouseout="changeCur('c')" :class="activeIndex===undefined?'active':''">全部</li>
-            <div class="aside-tape">
-                    <x-tape 
-                    :start="tapeStart===undefined">
-                    </x-tape>
-                </div>
-            <template v-for="(item,i) in list">
-                <!-- <div class="aside-tape" :key="i">
+        <li @click="changeActive(undefined)" @mouseover="changeCur(undefined)" @mouseout="changeCur('c')" :class="activeIndex===undefined?'active':''">全部</li>
+        <div class="aside-tape">
+            <x-tape :start="tapeStart===undefined">
+            </x-tape>
+        </div>
+        <template v-for="(item,i) in list">
+            <!-- <div class="aside-tape" :key="i">
                     <x-tape 
                     :start="tapeStart===i"
                     :revers="true">
                     </x-tape>
                 </div> -->
-                <li @click="changeActive(i,item)" @mouseover="changeCur(i)" @mouseout="changeCur('c')" :class="activeIndex===i?'active':''" :key="i">{{item.name}}</li>
-                <div class="aside-tape" :key="i">
-                    <x-tape 
-                    :start="tapeStart===i">
-                    </x-tape>
-                </div>
-            </template>
-        </ul>
+            <li @click="changeActive(i,item)" @mouseover="changeCur(i)" @mouseout="changeCur('c')" :class="activeIndex===i?'active':''" :key="i">{{item.name}}</li>
+            <div class="aside-tape" :key="i">
+                <x-tape :start="tapeStart===i">
+                </x-tape>
+            </div>
+        </template>
+    </ul>
 </template>
 <script>
-import XTape from "~/components/XTape";
+import XTape from '~/components/XTape';
 import { all } from 'async';
 
 export default {
-    name: "x-aside",
+    name: 'x-aside',
     data() {
         return {
             activeIndex: undefined,
-            tapeStart: "c"
+            tapeStart: 'c',
         };
     },
     components: {
-        XTape
+        XTape,
     },
     methods: {
-        changeActive(i, p={}) {
+        changeActive(i, p = {}) {
             this.activeIndex = i;
-            this.$emit("aside", { id: p.id||'', alias: p.alias||'' });
+            this.$emit('aside', { id: p.id || '', alias: p.alias || '' });
         },
         changeCur(i) {
             this.tapeStart = i;
-        }
+        },
     },
     props: {
         list: {
             type: Array,
-            default: () => []
-        }
-    }
+            default: () => [],
+        },
+    },
 };
 </script>
 

@@ -14,6 +14,7 @@
                             {{item.name}}
                         </li>
                     </template>
+                    <li><a href="https://m.jef.site">Pwa</a></li>
                 </ul>
             </div>
             <div class="xheader-wrap-r" v-if="!userInfo.id">

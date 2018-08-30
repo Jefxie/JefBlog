@@ -1,86 +1,81 @@
 <template>
     <div class="blog">
         <div class="blog-content">
-            <x-slide
-            :list="slide" />
+            <x-slide :list="slide" />
             <template v-for="(item,i) in articleList[paramsId]||[]">
-                <x-list
-                :key="i"
-                :data="item"
-                @detail="goToDetail" />
+                <x-list :key="i" :data="item" @detail="goToDetail" />
             </template>
             <div class="blog-more">
                 <button v-if="isLoading" @click="loadMore">加载更多</button>
             </div>
         </div>
         <div class="blog-bar">
-            <h3 class="blog-bar-title"><Icon type="ios-keypad" />&nbsp;标签分类</h3>
-            <x-sidebar 
-            :list="categoryList"
-            :active="paramsId" />
+            <h3 class="blog-bar-title">
+                <Icon type="ios-keypad" />&nbsp;标签分类</h3>
+            <x-sidebar :list="categoryList" :active="paramsId" />
             <!-- <div class="blog-bar-logo">
                 <img src="../../assets/images/logo.r.png" alt="">
                 <span>雨夜</span>
             </div> -->
             <div class="blog-bar-github">
-                <x-github /> 
-            </div>    
+                <x-github />
+            </div>
         </div>
     </div>
 </template>
 <script>
-import XSidebar from "~/components/XSidebar";
-import XSlide from "~/components/XSlider";
-import XList from "~/components/XList";
-import XGithub from "~/components/XGithub";
-import { mapGetters, mapActions } from "vuex";
+import XSidebar from '~/components/XSidebar';
+import XSlide from '~/components/XSlider';
+import XList from '~/components/XList';
+import XGithub from '~/components/XGithub';
+import { mapGetters, mapActions } from 'vuex';
 export default {
-    name: "blog",
+    name: 'blog',
     data() {
         return {
-            paramsId: "all",
+            paramsId: 'all',
             pages: {},
             slide: [
                 {
                     src:
-                        "http://hbfile.b0.upaiyun.com/img/home/banner/1bc004d49cb173857cf75507141a33a0070e7a831040a6",
-                    target: "/"
+                        'http://hbfile.b0.upaiyun.com/img/home/banner/1bc004d49cb173857cf75507141a33a0070e7a831040a6',
+                    target: '/',
                 },
                 {
                     src:
-                        "http://hbfile.b0.upaiyun.com/img/home/banner/cdf0a6ab627bc33af759533af558a118be5a1b1dd2d93",
-                    target: "/"
+                        'http://hbfile.b0.upaiyun.com/img/home/banner/cdf0a6ab627bc33af759533af558a118be5a1b1dd2d93',
+                    target: '/',
                 },
                 {
                     src:
-                        "http://img.hb.aicdn.com/85a73d8b40798b16d18a560fe60a0dfb2b00ad334f9c6-t3oGRG_fw658",
-                    target: "/"
-                }
-            ]
+                        'http://img.hb.aicdn.com/85a73d8b40798b16d18a560fe60a0dfb2b00ad334f9c6-t3oGRG_fw658',
+                    target: '/',
+                },
+            ],
         };
     },
     components: {
         XSidebar,
         XSlide,
         XList,
-        XGithub
+        XGithub,
     },
     computed: {
-        ...mapGetters(["categoryList", "articleList"]),
+        ...mapGetters(['categoryList', 'articleList']),
         categoryId() {
             if (
                 !Object.prototype.toString
                     .call(this.categoryList)
-                    .includes("Array")
+                    .includes('Array')
             )
-                return "";
+                return '';
             const len = this.categoryList.length || 0;
             for (let i = 0; i < len; i++) {
                 if (this.categoryList[i].alias == this.paramsId) {
                     return this.categoryList[i].id;
                 }
             }
-            return "";
+            return '';
         },
         isLoading() {
             if (
@@ -90,38 +85,38 @@ export default {
                 return true;
 
             return false;
-        }
+        },
     },
     watch: {
         $route: {
             handler: function(val, old) {
-                this.paramsId = val.params.id || "all";
+                this.paramsId = val.params.id || 'all';
                 this.initArticleList();
             },
-            immediate: true
-        }
+            immediate: true,
+        },
     },
     head() {
         return {
-            title: "博客|分类|" + this.paramsId,
+            title: '博客|分类|' + this.paramsId,
             meta: [
                 {
                     hid: this.paramsId,
                     name: this.paramsId,
-                    content: "Jef.site 雨夜客栈(博客)"
-                }
-            ]
+                    content: 'Jef.site 雨夜客栈(博客)',
+                },
+            ],
         };
     },
     methods: {
-        ...mapActions(["getArticleList"]),
+        ...mapActions(['getArticleList']),
         initArticleList(ispush = false, page = 1, total = 10) {
             this.getArticleList({
                 category: this.categoryId,
                 key: this.paramsId,
                 ispush,
                 total,
-                page
+                page,
             });
         },
         loadMore() {
@@ -131,14 +126,14 @@ export default {
             this.initArticleList(true, _page);
         },
         goToDetail(id) {
-            this.$router.push("/blog/detail/" + id + ".html");
-        }
-    }
+            this.$router.push('/blog/detail/' + id + '.html');
+        },
+    },
 };
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/styles/variable.scss";
+@import '~/assets/styles/variable.scss';
 .blog {
     display: flex;
     justify-content: space-between;

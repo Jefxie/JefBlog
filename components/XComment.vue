@@ -13,12 +13,7 @@
                     <span v-if="userInfo.id" @click="showCommentInput(item.id)">
                         {{commentParmam === item.id?'收起':'回复'}}
                     </span>
-                    <Poptip
-                        confirm
-                        title="真的要删除这条评论吗?"
-                        :transfer="true"
-                        @on-ok="poptipOk(item.id)"
-                        >
+                    <Poptip confirm title="真的要删除这条评论吗?" :transfer="true" @on-ok="poptipOk(item.id)">
                         <!-- <Button>Delete</Button> -->
                         <span v-if="item.author.id === userInfo.id">删除</span>
                     </Poptip>
@@ -32,63 +27,62 @@
     </ul>
 </template>
 <script>
-import date from "~/uilts/date";
-import { mapActions, mapGetters } from "vuex";
+import date from '~/uilts/date';
+import { mapActions, mapGetters } from 'vuex';
 export default {
-    name: "xcomment",
+    name: 'xcomment',
     data() {
         return {
-            commentParmam: "",
-            commentText: ""
+            commentParmam: '',
+            commentText: '',
         };
     },
     props: {
         list: {
             type: Array,
-            default: () => []
-        }
+            default: () => [],
+        },
     },
     computed: {
-        ...mapGetters(["userInfo"])
+        ...mapGetters(['userInfo']),
     },
     methods: {
-        ...mapActions(["deleteComment"]),
+        ...mapActions(['deleteComment']),
         formatDate(t) {
-            return date(t).format("YYYY-MM-DD HH:mm:ss");
+            return date(t).format('YYYY-MM-DD HH:mm:ss');
         },
         addComment(id) {
-            this.$emit("parent", {
+            this.$emit('parent', {
                 parent: id,
                 text: this.commentText,
-                cb: this.emitCallback
+                cb: this.emitCallback,
             });
         },
         emitCallback(ok) {
             if (ok) {
-                this.commentParmam = "";
-                this.commentText = "";
+                this.commentParmam = '';
+                this.commentText = '';
             }
         },
         showCommentInput(id) {
             if (this.commentParmam) {
-                this.commentParmam = "";
+                this.commentParmam = '';
                 return;
             }
             this.commentParmam = id;
         },
         jumpTo(target) {
-            this.$router.push("/user/" + target);
+            this.$router.push('/user/' + target);
         },
         poptipOk(id) {
-            // console.log(is)
             this.deleteComment(id);
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/styles/variable.scss";
+@import '~/assets/styles/variable.scss';
 
 .comment {
     width: 100%;

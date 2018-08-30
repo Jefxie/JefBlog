@@ -1,56 +1,56 @@
 <template>
     <div class="write markdown-wrapper">
         <textarea ref="editor"></textarea>
-  </div>
+    </div>
 </template>
 <script>
-import Simplemde from "simplemde";
-import "simplemde/dist/simplemde.min.css";
+import Simplemde from 'simplemde';
+import 'simplemde/dist/simplemde.min.css';
 export default {
-    naem: "MarkdownEditor",
+    naem: 'MarkdownEditor',
     props: {
         value: {
             type: String,
-            default: ""
+            default: '',
         },
         options: {
             type: Object,
             default: () => {
                 return {};
-            }
+            },
         },
         localCache: {
             type: Boolean,
-            default: true
-        }
+            default: true,
+        },
     },
     data() {
         return {
-            editor: null
+            editor: null,
         };
     },
     methods: {
         addEvents() {
-            this.editor.codemirror.on("change", () => {
+            this.editor.codemirror.on('change', () => {
                 let value = this.editor.value();
-                console.log("val", value,1,this.editor.markdown(value));
+                console.log('val', value, 1, this.editor.markdown(value));
                 if (this.localCache) localStorage.markdownContent = value;
-                this.$emit("input", value);
-                this.$emit("on-change", value);
+                this.$emit('input', value);
+                this.$emit('on-change', value);
             });
-            this.editor.codemirror.on("focus", () => {
-                this.$emit("on-focus", this.editor.value());
+            this.editor.codemirror.on('focus', () => {
+                this.$emit('on-focus', this.editor.value());
             });
-            this.editor.codemirror.on("blur", () => {
-                this.$emit("on-blur", this.editor.value());
+            this.editor.codemirror.on('blur', () => {
+                this.$emit('on-blur', this.editor.value());
             });
-        }
+        },
     },
     mounted() {
         this.editor = new Simplemde(
             Object.assign(this.options, {
-                element: this.$refs.editor
-            })
+                element: this.$refs.editor,
+            }),
         );
         /**
          * 事件列表为Codemirror编辑器的事件，更多事件类型，请参考：
@@ -59,11 +59,11 @@ export default {
         this.addEvents();
         let content = localStorage.markdownContent;
         if (content) this.editor.value(content);
-    }
+    },
 };
 </script>
 <style scoped lang="scss">
-@import "~/assets/styles/variable.scss";
+@import '~/assets/styles/variable.scss';
 
 .write {
     width: $wrap;

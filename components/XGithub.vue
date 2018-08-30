@@ -1,34 +1,34 @@
 <template>
     <div class="github">
         <a href="https://github.com/Jefxie/JefBlog" target="_blank" class="github-star">
-                <Icon type="logo-github" />
-                <p>
-                    &nbsp;GitHub
-                </p>
-                <span>{{gitHubStar}}</span>
-            </a>
+            <Icon type="logo-github" />
+            <p>
+                &nbsp;GitHub
+            </p>
+            <span>{{gitHubStar}}</span>
+        </a>
     </div>
 </template>
 <script>
-import { GetGitHubStar } from "~/api/user";
-import { mapGetters, mapActions } from "vuex";
+import { GetGitHubStar } from '~/api/user';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-    name: "github",
+    name: 'github',
     data() {
         return {
-            star: 0
+            star: 0,
         };
     },
-    computed:{
-        ...mapGetters(["gitHubStar"])
+    computed: {
+        ...mapGetters(['gitHubStar']),
     },
     created() {
-        this.getGitHubStar()
+        this.getGitHubStar();
     },
-    methods:{
-        ...mapActions(["getGitHubStar"])
-    }
+    methods: {
+        ...mapActions(['getGitHubStar']),
+    },
 };
 </script>
 
@@ -64,7 +64,7 @@ export default {
             color: #fff;
 
             &::before {
-                content: "";
+                content: '';
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);

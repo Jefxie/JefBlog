@@ -1,8 +1,7 @@
 <template>
     <div class="user">
         <span @click="$router.push('/user/edite')" class="user-edit">
-            <Icon type="ios-create-outline" />
-            编辑名片
+            <Icon type="ios-create-outline" /> 编辑名片
         </span>
         <div class="user-top">
             <img class="user-top-avatar" :src="userData.avatar_url" alt="">
@@ -11,17 +10,17 @@
                 <span>{{userData.login}}</span>
             </div>
         </div>
-            <Divider orientation="left">邮箱</Divider>
+        <Divider orientation="left">邮箱</Divider>
         <div class="user-blog">
             <Icon type="ios-at" />
             <p>{{userData.email}}</p>
         </div>
-            <Divider orientation="left">坐标</Divider>
+        <Divider orientation="left">坐标</Divider>
         <div class="user-blog">
             <Icon type="md-compass" />
             <p>{{userData.location}}</p>
         </div>
-            <Divider orientation="left">主页</Divider>
+        <Divider orientation="left">主页</Divider>
         <div class="user-blog">
             <Icon type="md-aperture" />
             <p>{{userData.blog}}</p>
@@ -31,62 +30,60 @@
             <p>{{userData.bio}}</p>
         </div>
 
-       <div v-if="showNoticeList" class="user-notic">
-           <!-- <h3>消息列表</h3> -->
+        <div v-if="showNoticeList" class="user-notic">
+            <!-- <h3>消息列表</h3> -->
             <Divider orientation="center">消息列表</Divider>
             <Tabs value="readNotice" @on-click="changeTabs">
                 <TabPane label="未读" name="readNotice">
-                    <x-notice-list 
-                    :list="readNotice" />
+                    <x-notice-list :list="readNotice" />
                 </TabPane>
                 <TabPane label="已读" name="unReadNotice">
-                    <x-notice-list 
-                    :list="unReadNotice" />
+                    <x-notice-list :list="unReadNotice" />
                 </TabPane>
             </Tabs>
-       </div>
+        </div>
     </div>
 </template>
 <script>
-import { GetUserInfo } from "~/api/user";
-import { GetNoticeList } from "~/api/blog";
-import { mapGetters } from "vuex";
-import XNoticeList from "~/components/XNoticeList";
+import { GetUserInfo } from '~/api/user';
+import { GetNoticeList } from '~/api/blog';
+import { mapGetters } from 'vuex';
+import XNoticeList from '~/components/XNoticeList';
 export default {
-    name: "user",
+    name: 'user',
     data() {
         return {
             userData: {},
             noticeShow: false,
             readNotice: [],
-            unReadNotice: []
+            unReadNotice: [],
         };
     },
     components: {
-        XNoticeList
+        XNoticeList,
     },
     computed: {
-        ...mapGetters(["userInfo"]),
+        ...mapGetters(['userInfo']),
         showNoticeList() {
             const _login = this.$route.params.id;
             if (this.userInfo && this.userInfo.login === _login) {
                 return true;
             }
             return false;
-        }
+        },
     },
     head() {
         return {
-            title: `${this.userData ? this.userData.name : ""}(${
-                this.userData ? this.userData.login : ""
+            title: `${this.userData ? this.userData.name : ''}(${
+                this.userData ? this.userData.login : ''
             })的个人主页`,
             meta: [
                 {
-                    hid: "user",
-                    name: "user",
-                    content: "Jef.site 雨夜客栈(博客)"
-                }
-            ]
+                    hid: 'user',
+                    name: 'user',
+                    content: 'Jef.site 雨夜客栈(博客)',
+                },
+            ],
         };
     },
     watch: {
@@ -105,12 +102,12 @@ export default {
                     this.userData = res.data;
                 }
             },
-            immediate: true
-        }
+            immediate: true,
+        },
     },
     methods: {
         async getNoticeList(id, state = 1) {
-            const name = state == 1 ? "readNotice" : "unReadNotice";
+            const name = state == 1 ? 'readNotice' : 'unReadNotice';
             if (this[name].length > 0) {
                 return;
             }
@@ -118,15 +115,15 @@ export default {
             this.$set(this, name, res.data);
         },
         changeTabs(name) {
-            const state = name == "readNotice" ? 1 : 0;
+            const state = name == 'readNotice' ? 1 : 0;
             this.getNoticeList(this.userInfo.id, state);
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/styles/variable.scss";
+@import '~/assets/styles/variable.scss';
 
 .user {
     position: relative;
