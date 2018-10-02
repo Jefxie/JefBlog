@@ -1,4 +1,4 @@
-import vm from "vue";
+import vm from 'vue';
 import {
   GetCategoryList,
   GetArticleList,
@@ -7,19 +7,19 @@ import {
   AddAtricle,
   GetArticleDetail,
   GetComment,
-  DeleteComment
-} from "~/api/blog";
+  DeleteComment,
+} from '~/api/blog';
 
 export default {
   state: {
     categoryList: [],
     articleList: {},
     detailData: {},
-    commentList: []
+    commentList: [],
   },
   mutations: {
     ADD_CATEGORYLIST(state, v) {
-      vm.set(state, "categoryList", v);
+      vm.set(state, 'categoryList', v);
     },
     PUSH_CATEGORY(state, v) {
       state.categoryList.push(v);
@@ -40,10 +40,10 @@ export default {
       }
     },
     ADD_DETAILDATA(state, data) {
-      vm.set(state, "detailData", data);
+      vm.set(state, 'detailData', data);
     },
     ADD_COMMENTLIST(state, data) {
-      vm.set(state, "commentList", data);
+      vm.set(state, 'commentList', data);
     },
     DEL_ONECOMMENT(state, id) {
       const list = state.commentList;
@@ -53,22 +53,23 @@ export default {
           vm.delete(list, i);
         }
       }
-    }
+    },
   },
   actions: {
     async getCategoryList({ commit, state }) {
       if (state.categoryList && state.categoryList.length > 0) return;
       const res = await GetCategoryList();
       //   debugger
-      commit("ADD_CATEGORYLIST", res.data);
+      commit('ADD_CATEGORYLIST', res.data);
     },
     async getArticleList({ commit, state }, data) {
       if (data.ispush) {
         const res = await GetArticleList(data.category, data.total, data.page);
         data.val = res.data;
-        commit("PUSH_ARTICLELIST", data);
+        commit('PUSH_ARTICLELIST', data);
       } else {
         if (
+          data.key != 'all' &&
           state.articleList[data.key] &&
           state.articleList[data.key].length > 0
         )
@@ -76,13 +77,13 @@ export default {
 
         const res = await GetArticleList(data.category);
         data.val = res.data;
-        commit("ADD_ARTICLELIST", data);
+        commit('ADD_ARTICLELIST', data);
       }
     },
     async removeArticle({ commit }, data) {
       try {
         await RemoveArticle(data.id);
-        commit("REMOVE_ARTICLE", data);
+        commit('REMOVE_ARTICLE', data);
         return Promise.resolve(1);
       } catch (error) {
         return Promise.reject(0);
@@ -91,7 +92,7 @@ export default {
     async addCategory({ commit }, data) {
       try {
         const res = await AddCategory(data.name, data.alias);
-        commit("PUSH_CATEGORY", res.data);
+        commit('PUSH_CATEGORY', res.data);
         return Promise.resolve(1);
       } catch (error) {
         return Promise.reject(0);
@@ -100,9 +101,9 @@ export default {
     async addArticle({ commit }, data) {
       try {
         const res = await AddAtricle(data);
-        commit("PUSH_ARTICLELIST", {
-          key: "all",
-          val: res.data
+        commit('PUSH_ARTICLELIST', {
+          key: 'all',
+          val: res.data,
         });
         return Promise.resolve(1);
       } catch (error) {
@@ -111,19 +112,19 @@ export default {
     },
     async addDetailData({ commit }, id) {
       const res = await GetArticleDetail(id);
-      commit("ADD_DETAILDATA", res.data);
+      commit('ADD_DETAILDATA', res.data);
     },
     async addCommentList({ commit }, id) {
       const res = await GetComment(id);
-      commit("ADD_COMMENTLIST", res.data);
+      commit('ADD_COMMENTLIST', res.data);
     },
     async deleteComment({ commit }, id) {
       try {
         await DeleteComment(id);
-        commit("DEL_ONECOMMENT", id);
+        commit('DEL_ONECOMMENT', id);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-  }
+    },
+  },
 };
