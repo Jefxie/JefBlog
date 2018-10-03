@@ -10,28 +10,29 @@
             </div>
         </div>
         <div class="blog-bar">
-            
-            <h3 class="blog-bar-title">
-                <Icon type="ios-keypad" />
-                &nbsp;标签分类
-            </h3>
-            <x-sidebar :list="categoryList" :active="paramsId" />
-            <h3 class="blog-bar-title">
-                <Icon type="ios-keypad" />
-                &nbsp;体验小程序
-            </h3>
-            <div class="blog-bar-mp">
-                <img src="../../assets/images/mp.jpg" alt="小程序">
+            <div>
+                <h3 class="blog-bar-title">
+                    <Icon type="ios-keypad" />
+                    &nbsp;标签分类
+                </h3>
+                <x-sidebar :list="categoryList" :active="paramsId" />
+                <h3 class="blog-bar-title">
+                    <Icon type="ios-keypad" />
+                    &nbsp;体验小程序
+                </h3>
+                <div class="blog-bar-mp">
+                    <img src="../../assets/images/mp.jpg" alt="小程序">
             </div>
-            <!-- <div class="blog-bar-logo">
+                    <!-- <div class="blog-bar-logo">
                 <img src="../../assets/images/logo.r.png" alt="">
                 <span>雨夜</span>
             </div> -->
-            <div class="blog-bar-github">
-                <x-github />
+                    <div class="blog-bar-github">
+                        <x-github />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 </template>
 <script>
 import XSidebar from '~/components/XSidebar';
@@ -159,11 +160,21 @@ export default {
     }
     &-bar {
         width: $slide;
-        padding: 0 10px;
-        &-mp{
+        // padding: 0 10px;
+        > div {
+            width: 100%;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 6px #f1f1f1;
+            transition: 0.3s;
+            &:hover {
+                box-shadow: 0 0 6px rgba($color: #999, $alpha: 0.6);
+            }
+        }
+        &-mp {
             width: 100%;
             padding: 20px 30px;
-            img{
+            img {
                 width: 100%;
             }
         }

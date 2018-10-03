@@ -4,14 +4,15 @@
             <div class="footer-ctx-l">
                 <h5>小站自述</h5>
                 <p>接触前端以来一直想自己设计开发一个博客，用于分想和记录工作、生活和学习中遇到的问题，与解决问题的思路和感悟。
-                    本站是基于NodeJS，使用了KOA2框架加TypeScirpt开发，并自豪的使用了世界上最先进的数据库Postgresql😆，全站图片使用webp \(^o^)/~。</p>
+                    于是这个站就运应而生，架构为最典型的NodeJS+MongoDB+Vue，后端使用了Egg框架，前端为NuxtJs服务端渲染，整体比较轻巧简单 \(^o^)/~。</p>
             </div>
             <div class="footer-ctx-m">
                 <h5>相关链接</h5>
                 <ul>
-                    <li><a href="">PWA站</a></li>
-                    <li><a href="">实验功能</a></li>
-                    <li><a href="">隔壁友站</a></li>
+                    <li><a @click="jumpTo('/about')" href="javascript:void(0)">关于我</a></li>
+                    <li><a href="https://m.jef.site">移动端</a></li>
+                    <li><a href="https://github.com/jefxie">GitHub</a></li>
+                    <li><a href="https://weibo.com/autoshun">微博</a></li>
                 </ul>
             </div>
             <div class="footer-ctx-r">
@@ -23,32 +24,43 @@
                 </h5>
                 <ul>
                     <li><a href="https://github.com/jefxie" target="_blank">
-                        <svg class="icon github" aria-hidden="true">
-                    <use xlink:href="#icon-github"></use>
-                    </svg>
-                    </a></li>
+                            <svg class="icon github" aria-hidden="true">
+                                <use xlink:href="#icon-github"></use>
+                            </svg>
+                        </a></li>
                     <li><a href="https://gitee.com/jefxie" target="_blank">
-                        <svg class="icon mayun" aria-hidden="true">
-                    <use xlink:href="#icon-mayun"></use>
-                    </svg>
-                    </a></li>
+                            <svg class="icon mayun" aria-hidden="true">
+                                <use xlink:href="#icon-mayun"></use>
+                            </svg>
+                        </a></li>
                     <li><a href="https://weibo.com/autoshun" target="_blank">
-                        <svg class="icon weibo" aria-hidden="true">
-                    <use xlink:href="#icon-icoweibo"></use>
-                    </svg>
-                    </a></li>
+                            <svg class="icon weibo" aria-hidden="true">
+                                <use xlink:href="#icon-icoweibo"></use>
+                            </svg>
+                        </a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-info">
             <a href="https://www.jef.site">&copy; Jef.Site（雨夜）</a>
             &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">粤ICP备18012800号-2	</a>
+            <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank">粤ICP备18012800号-2 </a>
         </div>
     </footer>
 </template>
+<script>
+export default {
+    name:'xfooter',
+    methods:{
+        jumpTo(to) {
+            this.$router.push(to);
+        },
+    }
+}
+</script>
+
 <style lang="scss" scoped>
-@import "~/assets/styles/variable.scss";
+@import '~/assets/styles/variable.scss';
 
 .footer {
     width: 100%;

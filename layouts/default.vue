@@ -1,92 +1,91 @@
 <template>
-  <div>
-    <header class="header">
-      <x-header
-        :clarity="isHome&&isClarity" 
-        :headers='headers'
-        :active="curPath"
-        :noticeCount="noticeCount"
-      />
-    </header>
-    <div class="container" :class="isHome?'':'pads'">
-      <nuxt/>
+    <div>
+        <header class="header">
+            <x-header :clarity="isHome&&isClarity" :headers='headers' :active="curPath" :noticeCount="noticeCount" />
+        </header>
+        <div class="container" :class="isHome?'':'pads'">
+            <nuxt />
+        </div>
+        <x-footer />
+        <BackTop></BackTop>
     </div>
-    <x-footer />
-    <BackTop></BackTop>
-  </div>
 </template>
 <script>
-import Cookies from "js-cookie";
-import XHeader from "~/components/XHeader";
-import XFooter from "~/components/XFooter";
-import { GetNoticeCount } from "~/api/blog";
-import { mapActions, mapGetters } from "vuex";
+import Cookies from 'js-cookie';
+import XHeader from '~/components/XHeader';
+import XFooter from '~/components/XFooter';
+import { GetNoticeCount } from '~/api/blog';
+import { mapActions, mapGetters } from 'vuex';
 export default {
-    name: "layout",
+    name: 'layout',
     data() {
         return {
             isClarity: true,
             isHome: false,
-            curPath: "",
+            curPath: '',
             noticeCount: 0,
             headers: [
                 {
-                    name: "首页",
-                    path: "/"
+                    name: '首页',
+                    path: '/',
                 },
                 {
-                    name: "博客",
-                    path: "/blog"
-                }
-                // {
-                //     name: "Pwa",
-                //     path: "/pwa"
-                // }
-            ]
+                    name: '博客',
+                    path: '/blog',
+                },
+                {
+                    name: 'PWA',
+                    path: '/pwa?src=https://m.jef.site',
+                },
+                {
+                    name: '关于',
+                    path: '/about',
+                },
+            ],
         };
     },
     components: {
         XHeader,
-        XFooter
+        XFooter,
     },
     computed: {
-        ...mapGetters(["userInfo"])
+        ...mapGetters(['userInfo']),
     },
     created() {
         this.getCategoryList();
     },
     mounted() {
         if (this.isHome) {
-            window.addEventListener("scroll", this.handleScroll);
+            window.addEventListener('scroll', this.handleScroll);
         }
     },
     watch: {
         $route: {
             handler: async function(val, old) {
                 if (this.userInfo && this.userInfo.id) {
-                    const res = await GetNoticeCount(this.userInfo.id,1);
+                    const res = await GetNoticeCount(this.userInfo.id, 1);
                     this.noticeCount = res.data;
                 } else {
                     this.getUserInfo();
                 }
                 this.curPath = val.path;
-                if (val.path === "/") {
+                if (val.path === '/') {
                     this.isHome = true;
                     return;
                 }
                 this.isHome = false;
             },
-            immediate: true
+            immediate: true,
         },
         userInfo: async function(val, old) {
             if (val.id) {
-                const res = await GetNoticeCount(val.id,1);
+                const res = await GetNoticeCount(val.id, 1);
                 this.noticeCount = res.data;
             }
-        }
+        },
     },
     methods: {
-        ...mapActions(["getCategoryList", "getUserInfo"]),
+        ...mapActions(['getCategoryList', 'getUserInfo']),
         handleScroll() {
             let scrollTop =
                 window.pageYOffset ||
@@ -97,8 +96,8 @@ export default {
                 return;
             }
             this.isClarity = true;
-        }
-    }
+        },
+    },
 };
 </script>
 

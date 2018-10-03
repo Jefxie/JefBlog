@@ -4,8 +4,8 @@
             <div class="xheader-wrap-l">
                 <h1 class="xheader-logo">
                     <a href="https://www.jef.site">
-                      <img v-if="clarity" src="../assets/images/logo.w.png" alt="logo-jef.site">
-                      <img v-else src="../assets/images/logo.r.png" alt="logo-jef.site">
+                        <img v-if="clarity" src="../assets/images/logo.w.png" alt="logo-jef.site">
+                        <img v-else src="../assets/images/logo.r.png" alt="logo-jef.site">
                     </a>
                 </h1>
                 <ul class="xheader-wrap-tab" :class="clarity?'f':''">
@@ -14,7 +14,6 @@
                             {{item.name}}
                         </li>
                     </template>
-                    <li><a href="https://m.jef.site">Pwa</a></li>
                 </ul>
             </div>
             <div class="xheader-wrap-r" v-if="!userInfo.id">
@@ -22,12 +21,7 @@
                 <button @click="toLogin" class="xheader-wrap-register">注册</button>
             </div>
             <template v-if="userInfo.id">
-                <Poptip 
-                :title="'已登录 '+ userInfo.login"
-                trigger="hover"
-                content="" 
-                placement="bottom"
-                :transfer="true" >
+                <Poptip :title="'已登录 '+ userInfo.login" trigger="hover" content="" placement="bottom" :transfer="true">
                     <div class="xheader-user">
                         <div class="xheader-user-head">
                             <i v-if="noticeCount>0">
@@ -54,38 +48,38 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { ToLogin } from "~/api/user";
+import { mapActions, mapGetters } from 'vuex';
+import { ToLogin } from '~/api/user';
 export default {
-    name: "xheader",
+    name: 'xheader',
     props: {
         clarity: {
             type: Boolean,
-            default: true
+            default: true,
         },
         headers: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         active: {
             type: String,
-            default: "/"
+            default: '/',
         },
         noticeCount: {
             type: Number,
-            default: 0
-        }
+            default: 0,
+        },
     },
     computed: {
-        ...mapGetters(["userInfo"])
+        ...mapGetters(['userInfo']),
     },
     mounted() {},
     methods: {
-        ...mapActions(["userLogout"]),
+        ...mapActions(['userLogout']),
         isActive(p) {
-            if (this.active === "/" && p === "/") return true;
-            if (p === "/") return false;
-            return this.active.includes(p);
+            if (this.active === '/' && p === '/') return true;
+            if (p === '/') return false;
+            return this.active.includes(p.slice(0, p.indexOf('?')));
         },
         jumpTo(to) {
             this.$router.push(to);
@@ -95,13 +89,13 @@ export default {
         },
         logout() {
             this.userLogout();
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style scoped lang="scss">
-@import "~/assets/styles/variable.scss";
+@import '~/assets/styles/variable.scss';
 .xheader {
     width: 100%;
     height: 56px;
@@ -251,7 +245,7 @@ export default {
             border-bottom: 1px solid $jef_red;
             cursor: pointer;
         }
-        i{
+        i {
             color: $jef_red;
             font-style: normal;
         }
